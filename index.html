@@ -255,7 +255,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
 let autoTimer=null,autoOn=false;
 async function fredFetch(id,limit=26){
   try{
-    const r=await fetch('\/.netlify\/functions\/fred?series_id='+id+'&limit='+limit);
+    const r=await fetch('/.netlify/functions/fred?series_id='+id+'&limit='+limit);
     if(!r.ok)return null;
     const j=await r.json();
     const obs=(j.observations||[]).filter(o=>o.value!=='.'&&o.value!=='');
