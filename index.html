@@ -4,19 +4,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Macro & Liquidity Monitor v3</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<title>Macro & Liquidity Monitor</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#06090d;--s1:#0b0f15;--s2:#0f1520;--s3:#141c28;
-  --border:#1a2535;--border2:#243344;
-  --accent:#38bdf8;--accent2:#34d399;
-  --text:#94a3b8;--text2:#64748b;--bright:#e2e8f0;
-  --green:#34d399;--red:#f87171;--yellow:#fbbf24;--purple:#a78bfa;--pink:#f472b6;
-  --grid:rgba(56,189,248,.03);
-}
+:root{--bg:#06090d;--s1:#0b0f15;--s2:#0f1520;--border:#1a2535;--border2:#243344;--accent:#38bdf8;--accent2:#34d399;--text:#94a3b8;--text2:#64748b;--bright:#e2e8f0;--green:#34d399;--red:#f87171;--yellow:#fbbf24;--purple:#a78bfa;--pink:#f472b6;--grid:rgba(56,189,248,.03);}
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'IBM Plex Mono',monospace;min-height:100vh;}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
 .wrap{position:relative;z-index:1;max-width:1500px;margin:0 auto;padding:20px 24px 60px;}
@@ -40,7 +32,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
 .b-sent{color:var(--purple);border-color:var(--purple);}
 .sec-line{flex:1;height:1px;background:var(--border);}
 .cycle-row{display:grid;grid-template-columns:240px 1fr;gap:14px;margin-bottom:18px;}
-@media(max-width:680px){.cycle-row{grid-template-columns:1fr;}}
 .cycle-card{background:var(--s1);border:1px solid var(--border);padding:18px;display:flex;flex-direction:column;align-items:center;}
 .ring-wrap{position:relative;width:150px;height:150px;}
 .ring-wrap svg{transform:rotate(-90deg);}
@@ -57,7 +48,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
 .cs-val{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--bright);min-width:60px;text-align:right;}
 .cs-sig{font-size:8px;padding:2px 6px;border:1px solid;letter-spacing:1px;min-width:80px;text-align:center;}
 .g-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;}
-.g-card{background:var(--s1);border:1px solid var(--border);padding:14px;position:relative;transition:border-color .2s;}
+.g-card{background:var(--s1);border:1px solid var(--border);padding:14px;transition:border-color .2s;}
 .g-card:hover{border-color:var(--border2);}
 .g-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
 .g-name{font-size:9px;letter-spacing:1px;color:var(--text2);text-transform:uppercase;}
@@ -84,12 +75,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
 .cal-tbl td{padding:10px 14px;border-bottom:1px solid rgba(26,37,53,.5);font-size:10px;vertical-align:middle;}
 .cal-tbl tr:last-child td{border-bottom:none;}
 .cal-tbl tr:hover td{background:var(--s2);}
-.cal-tbl tr.today td{background:rgba(251,191,36,.04);}
 .days-chip{display:inline-block;min-width:42px;text-align:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;}
-.imp-high{color:var(--red);}
-.imp-med{color:var(--yellow);}
-.imp-low{color:var(--text2);}
 .imp-badge{font-size:7px;padding:1px 5px;border:1px solid;letter-spacing:1px;text-transform:uppercase;}
+.imp-high{color:var(--red);border-color:var(--red);}
+.imp-med{color:var(--yellow);border-color:var(--yellow);}
+.imp-low{color:var(--text2);border-color:var(--border2);}
 .mx-wrap{background:var(--s1);border:1px solid var(--border);overflow-x:auto;}
 .mx-tbl{width:100%;border-collapse:collapse;min-width:700px;}
 .mx-tbl th{font-size:8px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);background:var(--s2);}
@@ -103,7 +93,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
 .mx-scen{color:var(--bright);font-weight:600;font-size:10px;}
 .mx-cond{font-size:8px;color:var(--text2);margin-top:2px;}
 .nlb{display:grid;grid-template-columns:220px 1fr;gap:14px;margin-bottom:18px;}
-@media(max-width:640px){.nlb{grid-template-columns:1fr;}}
 .nlb-main{background:var(--s1);border:1px solid var(--border);padding:18px;position:relative;overflow:hidden;}
 .nlb-main::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
 .nlb-lbl{font-size:8px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;}
@@ -114,7 +103,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
 .nlb-f{font-size:8px;color:var(--text2);margin-top:7px;padding-top:7px;border-top:1px solid var(--border);}
 .nlb-f span{color:var(--accent);}
 .nlb-sums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-@media(max-width:480px){.nlb-sums{grid-template-columns:1fr;}}
 .nlb-s{background:var(--s1);border:1px solid var(--border);padding:12px;}
 .nlb-s-lbl{font-size:7px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:5px;}
 .nlb-s-val{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:2px;}
@@ -153,13 +141,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
 <nav>
   <div class="brand">
     <h1>MACRO <em>&</em> LIQUIDITY <em>MONITOR</em></h1>
-    <p>游庭皓·景氣投資法框架 · FRED Real-Time · Auto-Refresh 30min</p>
+    <p>游庭皓 景氣投資法框架 · FRED Real-Time · Auto-Refresh 30min</p>
   </div>
   <div class="nav-r">
-    <div class="auto-badge" id="auto-badge">⏱ AUTO OFF</div>
-    <div class="ts">UPDATED: <span id="ts">—</span></div>
+    <div class="auto-badge" id="auto-badge">AUTO OFF</div>
+    <div class="ts">UPDATED: <span id="ts">-</span></div>
     <button class="btn" onclick="toggleAuto()" id="auto-btn">AUTO ON</button>
-    <button class="btn p" id="ref-btn" onclick="loadAll()">↺ REFRESH</button>
+    <button class="btn p" id="ref-btn" onclick="loadAll()">REFRESH</button>
   </div>
 </nav>
 <div class="sec">
@@ -178,7 +166,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
             <circle id="ring-ind" cx="75" cy="75" r="56" fill="none" stroke="var(--green)" stroke-width="12" stroke-dasharray="11 340" stroke-dashoffset="0" stroke-linecap="round"/>
           </svg>
           <div class="ring-center">
-            <div class="ring-phase" id="c-phase">—</div>
+            <div class="ring-phase" id="c-phase">-</div>
             <div class="ring-sub" id="c-sub">載入中</div>
           </div>
         </div>
@@ -189,7 +177,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
           <div class="cl-i"><div class="cl-d" style="background:var(--accent)"></div>復甦</div>
         </div>
       </div>
-      <div class="cycle-sigs" id="c-sigs"><div style="font-size:8px;color:var(--text2);letter-spacing:2px">LOADING...</div></div>
+      <div class="cycle-sigs" id="c-sigs"><div style="font-size:8px;color:var(--text2)">LOADING...</div></div>
     </div>
   </div>
   <div class="sec-hd" style="margin-bottom:10px;"><h2 style="font-size:8px;">關鍵指標（含6個月走勢）</h2><div class="sec-line"></div></div>
@@ -197,14 +185,14 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
   <div class="sec-hd" style="margin-bottom:10px;"><h2 style="font-size:8px;">發布日程表</h2><div class="sec-line"></div></div>
   <div class="cal-table-wrap" style="margin-bottom:18px;">
     <table class="cal-tbl">
-      <thead><tr><th>倒數</th><th>指標名稱</th><th>發布日期</th><th>頻率</th><th>影響</th><th>資料來源</th><th>觀察重點</th></tr></thead>
+      <thead><tr><th>倒數</th><th>指標</th><th>日期</th><th>頻率</th><th>影響</th><th>來源</th><th>觀察重點</th></tr></thead>
       <tbody id="cal-body"></tbody>
     </table>
   </div>
   <div class="sec-hd" style="margin-bottom:10px;"><h2 style="font-size:8px;">資產影響矩陣</h2><div class="sec-line"></div></div>
   <div class="mx-wrap">
     <table class="mx-tbl">
-      <thead><tr><th>情境</th><th>美股🇺🇸</th><th>美債📊</th><th>美元💵</th><th>台股🇹🇼</th><th>商品🛢</th><th>黃金🥇</th></tr></thead>
+      <thead><tr><th>情境</th><th>美股</th><th>美債</th><th>美元</th><th>台股</th><th>商品</th><th>黃金</th></tr></thead>
       <tbody id="mx-body"></tbody>
     </table>
   </div>
@@ -214,19 +202,19 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
   <div class="nlb">
     <div class="nlb-main">
       <div class="nlb-lbl">NET LIQUIDITY 估算</div>
-      <div class="nlb-v" id="nlb-v">—</div>
-      <div class="nlb-f" id="nlb-f"><span>Fed BS</span> − TGA(est) − <span>RRP</span></div>
+      <div class="nlb-v" id="nlb-v">-</div>
+      <div class="nlb-f" id="nlb-f"><span>Fed BS</span> - TGA(est) - <span>RRP</span></div>
     </div>
     <div class="nlb-sums">
-      <div class="nlb-s"><div class="nlb-s-lbl">System Liq</div><div class="nlb-s-val" id="sys-v">—</div><div class="nlb-s-desc" id="sys-d">—</div></div>
-      <div class="nlb-s"><div class="nlb-s-lbl">Funding Stress</div><div class="nlb-s-val" id="fund-v">—</div><div class="nlb-s-desc" id="fund-d">—</div></div>
-      <div class="nlb-s"><div class="nlb-s-lbl">Market Stress</div><div class="nlb-s-val" id="mkt-v">—</div><div class="nlb-s-desc" id="mkt-d">—</div></div>
+      <div class="nlb-s"><div class="nlb-s-lbl">System Liq</div><div class="nlb-s-val" id="sys-v">-</div><div class="nlb-s-desc" id="sys-d">-</div></div>
+      <div class="nlb-s"><div class="nlb-s-lbl">Funding Stress</div><div class="nlb-s-val" id="fund-v">-</div><div class="nlb-s-desc" id="fund-d">-</div></div>
+      <div class="nlb-s"><div class="nlb-s-lbl">Market Stress</div><div class="nlb-s-val" id="mkt-v">-</div><div class="nlb-s-desc" id="mkt-d">-</div></div>
     </div>
   </div>
   <div class="g-grid" id="liq-g" style="margin-bottom:18px;"></div>
   <div class="chart-card">
     <div class="chart-hd">
-      <div><h3>Net Liquidity 6個月走勢</h3><p>Fed Balance Sheet − TGA(est) − RRP（兆美元）</p></div>
+      <div><h3>Net Liquidity 6個月走勢</h3><p>Fed Balance Sheet - TGA(est) - RRP（兆美元）</p></div>
       <div class="chart-leg">
         <div class="leg-i"><div class="leg-l" style="background:var(--accent)"></div>Net Liq</div>
         <div class="leg-i"><div class="leg-l" style="background:var(--green);opacity:.5"></div>Fed BS</div>
@@ -237,213 +225,394 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
   </div>
   <div class="liq-tbl-wrap">
     <table class="liq-tbl">
-      <thead><tr><th>類別</th><th>指標</th><th>最新值</th><th>變化</th><th>訊號</th><th>資料來源</th></tr></thead>
+      <thead><tr><th>類別</th><th>指標</th><th>最新值</th><th>變化</th><th>訊號</th><th>來源</th></tr></thead>
       <tbody id="liq-tbl"></tbody>
     </table>
   </div>
 </div>
 <div class="sec">
-  <div class="sec-hd"><h2>市場情緒 &amp; 籌碼</h2><div class="badge b-sent">SENTIMENT</div><div class="sec-line"></div></div>
+  <div class="sec-hd"><h2>市場情緒 籌碼</h2><div class="badge b-sent">SENTIMENT</div><div class="sec-line"></div></div>
   <div class="sent-grid" id="sent-grid"></div>
-  <div style="font-size:9px;color:var(--text2);border:1px solid var(--border);padding:10px 14px;background:var(--s2);line-height:1.6;">
-    <strong style="color:var(--yellow)">⚠ 數據說明：</strong>
-    台灣三大法人數據來自 <a href="https://www.twse.com.tw" target="_blank" style="color:var(--accent)">TWSE 證交所</a>。美國 Margin Debt 來自 FINRA/FRED。COT Report 來自 CFTC（每週五）。
-  </div>
 </div>
 </div>
 <script>
-let autoTimer=null,autoOn=false;
-async function fredFetch(id, limit=26) {
-  try {
-    const r = await fetch('/.netlify/functions/fred?series_id='+id+'&limit='+limit);
-    if (!r.ok) return null;
-    const j = await r.json();
-    const obs = (j.observations||[]).filter(o=>o.value!=='.'&&o.value!=='');
-    return obs.length ? obs : null;
-  } catch { return null; }
+var autoTimer = null;
+var autoOn = false;
+var D = {};
+
+function fredFetch(id, limit) {
+  if (!limit) limit = 26;
+  return fetch('/.netlify/functions/fred?series_id=' + id + '&limit=' + limit)
+    .then(function(r) {
+      if (!r.ok) return null;
+      return r.json();
+    })
+    .then(function(j) {
+      if (!j) return null;
+      var obs = (j.observations || []).filter(function(o) { return o.value !== '.' && o.value !== ''; });
+      return obs.length ? obs : null;
+    })
+    .catch(function() { return null; });
 }
-```
-const MACRO=[
-  {id:'UNRATE',name:'失業率',cat:'就業市場',unit:'%',dec:1,div:1,max:12,sig:v=>v<4?'bull':v<5.5?'neu':'bear',sigs:{bull:'TIGHT LABOR',neu:'SOFTENING',bear:'WEAK'},color:'#34d399',comment:{bull:'失業率偏低 → 就業強勁，聯準會無需急降息',neu:'就業放緩，聯準會開始觀望',bear:'失業攀升 → 降息概率大增，衰退風險升'}},
-  {id:'ICSA',name:'初領失業金',cat:'就業市場',unit:'K',dec:0,div:1000,max:600,sig:v=>v<220?'bull':v<280?'neu':'bear',sigs:{bull:'HEALTHY',neu:'WATCH',bear:'LABOR STRESS'},color:'#f472b6',comment:{bull:'初領低位 → 裁員壓力小，景氣穩健',neu:'初領溫和上升，需持續觀察',bear:'初領攀升 → 企業裁員加速，衰退訊號'}},
-  {id:'CPIAUCSL',name:'CPI 通膨',cat:'通膨',unit:'%YoY',dec:1,div:1,max:12,sig:v=>v<2.5?'bull':v<4?'neu':'bear',sigs:{bull:'ON TARGET',neu:'ELEVATED',bear:'HOT'},color:'#fbbf24',comment:{bull:'通膨受控 → 降息空間打開',neu:'通膨仍高，降息受限',bear:'通膨過熱 → 升息機會升，企業成本增，美元走強'}},
-  {id:'PCEPI',name:'PCE 物價',cat:'通膨',unit:'idx',dec:1,div:1,max:150,sig:v=>'neu',sigs:{bull:'COOL',neu:'WATCH',bear:'HOT'},color:'#fbbf24',comment:{bull:'PCE降溫 → 降息路徑更清晰',neu:'PCE持穩，聯準會觀望',bear:'PCE偏高 → 政策轉鷹風險升'}},
-  {id:'DFF',name:'聯準會利率',cat:'貨幣政策',unit:'%',dec:2,div:1,max:10,sig:v=>v<2?'bull':v<4.5?'neu':'bear',sigs:{bull:'EASY',neu:'NEUTRAL',bear:'RESTRICTIVE'},color:'#a78bfa',comment:{bull:'低利率 → 資金寬鬆，成長股受惠',neu:'中性利率，觀察通膨就業平衡',bear:'高利率 → 壓制本益比，美元走強，新興市場承壓'}},
-  {id:'T10Y2Y',name:'殖利率曲線',cat:'貨幣政策',unit:'%',dec:2,div:1,max:4,sig:v=>v>0.5?'bull':v>0?'neu':'bear',sigs:{bull:'NORMAL',neu:'FLAT',bear:'INVERTED'},color:'#f472b6',comment:{bull:'正斜率 → 景氣擴張預期，銀行業受惠',neu:'趨平，注意轉折',bear:'倒掛 → 歷史上最可靠衰退指標，12-18個月後衰退'}},
-  {id:'DTWEXBGS',name:'美元指數',cat:'外匯',unit:'',dec:1,div:1,max:160,sig:v=>v>112?'bear':v>100?'neu':'bull',sigs:{bull:'WEAK USD',neu:'MODERATE',bear:'STRONG USD'},color:'#38bdf8',comment:{bull:'美元弱 → 新興市場受惠，台股外資回流',neu:'美元中性',bear:'美元強 → 新興市場承壓，台股外資匯出風險'}},
+
+var MACRO = [
+  {id:'UNRATE',name:'失業率',cat:'就業市場',unit:'%',dec:1,div:1,max:12,color:'#34d399',
+   sig:function(v){return v<4?'bull':v<5.5?'neu':'bear';},
+   sigs:{bull:'TIGHT LABOR',neu:'SOFTENING',bear:'WEAK'},
+   comment:{bull:'失業率偏低 → 就業強勁，聯準會無需急降息，利率偏高壓估值',neu:'就業放緩，聯準會開始觀望降息時機',bear:'失業攀升 → 降息概率大增，衰退風險升'}},
+  {id:'ICSA',name:'初領失業金',cat:'就業市場',unit:'K',dec:0,div:1000,max:600,color:'#f472b6',
+   sig:function(v){return v<220?'bull':v<280?'neu':'bear';},
+   sigs:{bull:'HEALTHY',neu:'WATCH',bear:'LABOR STRESS'},
+   comment:{bull:'初領低位 → 裁員壓力小，景氣穩健，有利風險資產',neu:'初領溫和上升，需持續觀察',bear:'初領攀升 → 企業裁員加速，景氣衰退訊號'}},
+  {id:'CPIAUCSL',name:'CPI 通膨',cat:'通膨',unit:'%YoY',dec:1,div:1,max:12,color:'#fbbf24',
+   sig:function(v){return v<2.5?'bull':v<4?'neu':'bear';},
+   sigs:{bull:'ON TARGET',neu:'ELEVATED',bear:'HOT'},
+   comment:{bull:'通膨受控 → 降息空間打開，債市上漲，成長股回升',neu:'通膨仍高，降息受限',bear:'通膨過熱 → 升息機會升，企業成本增，美元走強'}},
+  {id:'PCEPI',name:'PCE 物價',cat:'通膨',unit:'idx',dec:1,div:1,max:150,color:'#fbbf24',
+   sig:function(v){return 'neu';},
+   sigs:{bull:'COOL',neu:'WATCH',bear:'HOT'},
+   comment:{bull:'PCE降溫 → 降息路徑更清晰',neu:'PCE持穩，聯準會觀望',bear:'PCE偏高 → 政策轉鷹風險升'}},
+  {id:'DFF',name:'聯準會利率',cat:'貨幣政策',unit:'%',dec:2,div:1,max:10,color:'#a78bfa',
+   sig:function(v){return v<2?'bull':v<4.5?'neu':'bear';},
+   sigs:{bull:'EASY',neu:'NEUTRAL',bear:'RESTRICTIVE'},
+   comment:{bull:'低利率 → 資金寬鬆，成長股受惠',neu:'中性利率，觀察通膨就業平衡',bear:'高利率 → 壓制本益比，美元走強，新興市場承壓'}},
+  {id:'T10Y2Y',name:'殖利率曲線',cat:'貨幣政策',unit:'%',dec:2,div:1,max:4,color:'#f472b6',
+   sig:function(v){return v>0.5?'bull':v>0?'neu':'bear';},
+   sigs:{bull:'NORMAL',neu:'FLAT',bear:'INVERTED'},
+   comment:{bull:'正斜率 → 景氣擴張預期，銀行業受惠',neu:'趨平，注意轉折',bear:'倒掛 → 歷史上最可靠衰退指標，12-18個月後衰退'}},
+  {id:'DTWEXBGS',name:'美元指數',cat:'外匯',unit:'',dec:1,div:1,max:160,color:'#38bdf8',
+   sig:function(v){return v>112?'bear':v>100?'neu':'bull';},
+   sigs:{bull:'WEAK USD',neu:'MODERATE',bear:'STRONG USD'},
+   comment:{bull:'美元弱 → 新興市場受惠，台股外資回流',neu:'美元中性',bear:'美元強 → 新興市場承壓，台股外資匯出風險'}}
 ];
-const LIQ=[
-  {id:'WALCL',name:'Fed Balance Sheet',cat:'System Liq',unit:'T',dec:2,div:1000000,max:10,sig:v=>v>7?'bull':v>6?'neu':'bear',sigs:{bull:'EXPANSIVE',neu:'NEUTRAL',bear:'TIGHTENING'},color:'#34d399',desc:'QT縮表結構中'},
-  {id:'RRPONTSYD',name:'RRP Overnight',cat:'System Liq',unit:'B',dec:1,div:1,max:2500,sig:v=>v<100?'bear':v<500?'neu':'bull',sigs:{bull:'HIGH EXCESS',neu:'MODERATE',bear:'LOW EXCESS'},color:'#f87171',desc:'超額準備金指標'},
-  {id:'VIXCLS',name:'VIX 恐慌指數',cat:'Market Stress',unit:'',dec:2,div:1,max:80,sig:v=>v<15?'bull':v<25?'neu':'bear',sigs:{bull:'LOW FEAR',neu:'MODERATE',bear:'HIGH FEAR'},color:'#38bdf8',desc:'股票市場波動率'},
-  {id:'BAMLH0A0HYM2',name:'HY Credit Spread',cat:'Market Stress',unit:'%',dec:2,div:1,max:20,sig:v=>v<3.5?'bull':v<5.5?'neu':'bear',sigs:{bull:'TIGHT',neu:'MODERATE',bear:'WIDE/STRESS'},color:'#fbbf24',desc:'信用市場壓力'},
-  {id:'T10Y2Y',name:'殖利率曲線 10Y-2Y',cat:'Policy',unit:'%',dec:2,div:1,max:4,sig:v=>v>0.5?'bull':v>0?'neu':'bear',sigs:{bull:'NORMAL',neu:'FLAT',bear:'INVERTED'},color:'#f472b6',desc:'衰退領先指標'},
+
+var LIQ = [
+  {id:'WALCL',name:'Fed Balance Sheet',cat:'System Liq',unit:'T',dec:2,div:1000000,max:10,color:'#34d399',desc:'QT縮表結構中',
+   sig:function(v){return v>7?'bull':v>6?'neu':'bear';},sigs:{bull:'EXPANSIVE',neu:'NEUTRAL',bear:'TIGHTENING'},src:'https://fred.stlouisfed.org/series/WALCL'},
+  {id:'RRPONTSYD',name:'RRP Overnight',cat:'System Liq',unit:'B',dec:1,div:1,max:2500,color:'#f87171',desc:'超額準備金指標',
+   sig:function(v){return v<100?'bear':v<500?'neu':'bull';},sigs:{bull:'HIGH EXCESS',neu:'MODERATE',bear:'LOW EXCESS'},src:'https://fred.stlouisfed.org/series/RRPONTSYD'},
+  {id:'VIXCLS',name:'VIX 恐慌指數',cat:'Market Stress',unit:'',dec:2,div:1,max:80,color:'#38bdf8',desc:'股票市場波動率',
+   sig:function(v){return v<15?'bull':v<25?'neu':'bear';},sigs:{bull:'LOW FEAR',neu:'MODERATE',bear:'HIGH FEAR'},src:'https://fred.stlouisfed.org/series/VIXCLS'},
+  {id:'BAMLH0A0HYM2',name:'HY Credit Spread',cat:'Market Stress',unit:'%',dec:2,div:1,max:20,color:'#fbbf24',desc:'信用市場壓力',
+   sig:function(v){return v<3.5?'bull':v<5.5?'neu':'bear';},sigs:{bull:'TIGHT',neu:'MODERATE',bear:'WIDE/STRESS'},src:'https://fred.stlouisfed.org/series/BAMLH0A0HYM2'},
+  {id:'T10Y2Y',name:'殖利率曲線 10Y-2Y',cat:'Policy',unit:'%',dec:2,div:1,max:4,color:'#f472b6',desc:'衰退領先指標',
+   sig:function(v){return v>0.5?'bull':v>0?'neu':'bear';},sigs:{bull:'NORMAL',neu:'FLAT',bear:'INVERTED'},src:'https://fred.stlouisfed.org/series/T10Y2Y'}
 ];
-const EVENTS=[
-  {name:'ISM製造業PMI',date:'2026-04-01',freq:'每月第一交易日',impact:'high',src:'ISM',note:'超50=擴張'},
+
+var EVENTS = [
+  {name:'ISM製造業PMI',date:'2026-04-01',freq:'每月第一交易日',impact:'high',src:'ISM',note:'超50擴張，景氣領先指標'},
   {name:'初領失業金',date:'2026-04-02',freq:'每週四',impact:'med',src:'DOL',note:'提前預示就業轉折'},
   {name:'非農就業NFP',date:'2026-04-03',freq:'每月第一週五',impact:'high',src:'BLS',note:'最重要就業指標'},
   {name:'ISM服務業PMI',date:'2026-04-03',freq:'每月第三交易日',impact:'med',src:'ISM',note:'服務業佔GDP約80%'},
-  {name:'CPI通膨',date:'2026-04-10',freq:'每月中旬',impact:'high',src:'BLS',note:'高=升息壓力'},
+  {name:'CPI通膨',date:'2026-04-10',freq:'每月中旬',impact:'high',src:'BLS',note:'高=升息壓力；低=降息空間'},
   {name:'PPI生產者物價',date:'2026-04-11',freq:'每月中旬',impact:'med',src:'BLS',note:'CPI領先指標'},
-  {name:'零售銷售',date:'2026-04-16',freq:'每月中旬',impact:'med',src:'Commerce',note:'消費強度'},
+  {name:'零售銷售',date:'2026-04-16',freq:'每月中旬',impact:'med',src:'Commerce',note:'消費強度指標'},
   {name:'GDP初值',date:'2026-04-30',freq:'每季末',impact:'high',src:'BEA',note:'季度成長率'},
-  {name:'PCE物價',date:'2026-04-30',freq:'每月月底',impact:'high',src:'BEA',note:'聯準會核心指標'},
-  {name:'FOMC利率決策',date:'2026-05-07',freq:'每年8次',impact:'high',src:'Fed',note:'點陣圖預測利率路徑'},
+  {name:'PCE物價',date:'2026-04-30',freq:'每月月底',impact:'high',src:'BEA',note:'聯準會核心通膨指標'},
+  {name:'FOMC利率決策',date:'2026-05-07',freq:'每年8次',impact:'high',src:'Fed',note:'點陣圖預測利率路徑'}
 ];
-const MATRIX=[
-  {s:'就業強勁NFP↑',c:'失業率↓薪資增',stock:'neu',bond:'bear',usd:'bull',tw:'neu',com:'neu',gold:'bear'},
-  {s:'通膨過熱CPI>4%',c:'PCE高升息壓力',stock:'bear',bond:'bear',usd:'bull',tw:'bear',com:'bull',gold:'neu'},
-  {s:'通膨降溫CPI<2.5%',c:'PCE受控降息預期',stock:'bull',bond:'bull',usd:'bear',tw:'bull',com:'neu',gold:'bull'},
-  {s:'景氣衰退訊號',c:'PMI<50殖利率倒掛',stock:'bear',bond:'bull',usd:'neu',tw:'bear',com:'bear',gold:'bull'},
-  {s:'景氣擴張PMI>55',c:'就業好通膨溫和',stock:'bull',bond:'neu',usd:'neu',tw:'bull',com:'bull',gold:'neu'},
+
+var MATRIX = [
+  {s:'就業強勁NFP',c:'失業率低薪資增',stock:'neu',bond:'bear',usd:'bull',tw:'neu',com:'neu',gold:'bear'},
+  {s:'通膨過熱CPI高',c:'PCE高升息壓力',stock:'bear',bond:'bear',usd:'bull',tw:'bear',com:'bull',gold:'neu'},
+  {s:'通膨降溫',c:'PCE受控降息預期',stock:'bull',bond:'bull',usd:'bear',tw:'bull',com:'neu',gold:'bull'},
+  {s:'景氣衰退訊號',c:'PMI低殖利率倒掛',stock:'bear',bond:'bull',usd:'neu',tw:'bear',com:'bear',gold:'bull'},
+  {s:'景氣擴張PMI高',c:'就業好通膨溫和',stock:'bull',bond:'neu',usd:'neu',tw:'bull',com:'bull',gold:'neu'},
   {s:'Fed降息週期',c:'FFR下調寬鬆啟動',stock:'bull',bond:'bull',usd:'bear',tw:'bull',com:'bull',gold:'bull'},
-  {s:'流動性收緊',c:'NetLiq↓TGA高',stock:'bear',bond:'neu',usd:'bull',tw:'bear',com:'bear',gold:'neu'},
+  {s:'流動性收緊',c:'NetLiq下降TGA高',stock:'bear',bond:'neu',usd:'bull',tw:'bear',com:'bear',gold:'neu'}
 ];
-const D={};
-function drawSpark(canvas,history,color){
-  if(!canvas||!history||history.length<2)return;
-  const W=canvas.offsetWidth||200,H=36;
-  canvas.width=W;canvas.height=H;
-  const ctx=canvas.getContext('2d');
-  const vals=history.map(h=>h.v);
-  const mn=Math.min(...vals),mx=Math.max(...vals),range=mx-mn||1;
-  const xS=i=>(i/(vals.length-1))*W;
-  const yS=v=>H-((v-mn)/range)*(H-4)-2;
-  const grad=ctx.createLinearGradient(0,0,0,H);
-  grad.addColorStop(0,color+'40');grad.addColorStop(1,color+'00');
-  ctx.beginPath();vals.forEach((v,i)=>i===0?ctx.moveTo(xS(i),yS(v)):ctx.lineTo(xS(i),yS(v)));
-  ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
-  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=1.5;
-  vals.forEach((v,i)=>i===0?ctx.moveTo(xS(i),yS(v)):ctx.lineTo(xS(i),yS(v)));
+
+function drawSpark(canvas, history, color) {
+  if (!canvas || !history || history.length < 2) return;
+  var W = canvas.offsetWidth || 200, H = 36;
+  canvas.width = W; canvas.height = H;
+  var ctx = canvas.getContext('2d');
+  var vals = history.map(function(h) { return h.v; });
+  var mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals), range = mx - mn || 1;
+  var xS = function(i) { return (i / (vals.length - 1)) * W; };
+  var yS = function(v) { return H - ((v - mn) / range) * (H - 4) - 2; };
+  var grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, color + '40');
+  grad.addColorStop(1, color + '00');
+  ctx.beginPath();
+  vals.forEach(function(v, i) { i === 0 ? ctx.moveTo(xS(i), yS(v)) : ctx.lineTo(xS(i), yS(v)); });
+  ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath();
+  ctx.fillStyle = grad; ctx.fill();
+  ctx.beginPath();
+  ctx.strokeStyle = color; ctx.lineWidth = 1.5;
+  vals.forEach(function(v, i) { i === 0 ? ctx.moveTo(xS(i), yS(v)) : ctx.lineTo(xS(i), yS(v)); });
   ctx.stroke();
-  const lx=xS(vals.length-1),ly=yS(vals[vals.length-1]);
-  ctx.beginPath();ctx.arc(lx,ly,3,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();
+  ctx.beginPath();
+  ctx.arc(xS(vals.length - 1), yS(vals[vals.length - 1]), 3, 0, Math.PI * 2);
+  ctx.fillStyle = color; ctx.fill();
 }
-function renderGauges(indicators,containerId,showComment){
-  const el=document.getElementById(containerId);el.innerHTML='';
-  indicators.forEach(ind=>{
-    const d=D[ind.id],raw=d?.value;
-    const disp=raw!=null?(raw/ind.div).toFixed(ind.dec):'—';
-    const sig=raw!=null?ind.sig(raw/ind.div):'neu';
-    const pct=raw!=null?Math.min((raw/ind.div/ind.max)*100,100):0;
-    const chg=raw!=null&&d.prev!=null?((raw-d.prev)/Math.abs(d.prev)*100).toFixed(2):null;
-    const chgC=chg>0?'var(--green)':'var(--red)';
-    const dotC=sig==='bull'?'dot-bull':sig==='bear'?'dot-bear':'dot-neu';
-    const sigC=sig==='bull'?'sig-bull':sig==='bear'?'sig-bear':'sig-neu';
-    const comment=showComment&&ind.comment?ind.comment[sig]||'':'';
-    const cid='gc-'+ind.id+'-'+containerId;
-    el.innerHTML+=`<div class="g-card"><div class="g-top"><div class="g-name">${ind.name}</div><div class="g-dot ${dotC}"></div></div><div class="g-val">${disp}<span class="g-unit"> ${ind.unit}</span></div>${chg!=null?`<div class="g-chg" style="color:${chgC}">${chg>0?'▲':'▼'} ${Math.abs(chg)}%</div>`:'<div class="g-chg" style="color:var(--text2)">—</div>'}<canvas class="g-spark" id="${cid}"></canvas><div class="g-bar-bg"><div class="g-bar-fill" style="width:${pct}%;background:${ind.color}"></div></div><div class="g-sig ${sigC}">${ind.sigs[sig]}</div>${comment?`<div class="g-comment">${comment}</div>`:''}<div class="g-meta">${ind.cat} · ${d?.date||'—'}</div></div>`;
+
+function renderGauges(indicators, containerId, showComment) {
+  var el = document.getElementById(containerId);
+  el.innerHTML = '';
+  indicators.forEach(function(ind) {
+    var d = D[ind.id], raw = d && d.value != null ? d.value : null;
+    var disp = raw != null ? (raw / ind.div).toFixed(ind.dec) : '-';
+    var sig = raw != null ? ind.sig(raw / ind.div) : 'neu';
+    var pct = raw != null ? Math.min((raw / ind.div / ind.max) * 100, 100) : 0;
+    var chg = raw != null && d.prev != null ? ((raw - d.prev) / Math.abs(d.prev) * 100).toFixed(2) : null;
+    var chgC = chg > 0 ? 'var(--green)' : 'var(--red)';
+    var dotC = sig === 'bull' ? 'dot-bull' : sig === 'bear' ? 'dot-bear' : 'dot-neu';
+    var sigC = sig === 'bull' ? 'sig-bull' : sig === 'bear' ? 'sig-bear' : 'sig-neu';
+    var comment = showComment && ind.comment ? (ind.comment[sig] || '') : '';
+    var cid = 'gc-' + ind.id + '-' + containerId;
+    var chgHtml = chg != null ? '<div class="g-chg" style="color:' + chgC + '">' + (chg > 0 ? 'UP' : 'DN') + ' ' + Math.abs(chg) + '%</div>' : '<div class="g-chg" style="color:var(--text2)">-</div>';
+    var commentHtml = comment ? '<div class="g-comment">' + comment + '</div>' : '';
+    el.innerHTML += '<div class="g-card"><div class="g-top"><div class="g-name">' + ind.name + '</div><div class="g-dot ' + dotC + '"></div></div><div class="g-val">' + disp + '<span class="g-unit"> ' + ind.unit + '</span></div>' + chgHtml + '<canvas class="g-spark" id="' + cid + '"></canvas><div class="g-bar-bg"><div class="g-bar-fill" style="width:' + pct + '%;background:' + ind.color + '"></div></div><div class="g-sig ' + sigC + '">' + ind.sigs[sig] + '</div>' + commentHtml + '<div class="g-meta">' + ind.cat + ' - ' + (d && d.date ? d.date : '-') + '</div></div>';
   });
-  requestAnimationFrame(()=>{indicators.forEach(ind=>{drawSpark(document.getElementById('gc-'+ind.id+'-'+containerId),D[ind.id]?.history||[],ind.color);});});
+  setTimeout(function() {
+    indicators.forEach(function(ind) {
+      var canvas = document.getElementById('gc-' + ind.id + '-' + containerId);
+      drawSpark(canvas, D[ind.id] ? D[ind.id].history : [], ind.color);
+    });
+  }, 50);
 }
-function renderCycle(){
-  const u=D['UNRATE']?.value,ic=D['ICSA']?.value?D['ICSA'].value/1000:null;
-  const cpi=D['CPIAUCSL']?.value,ffr=D['DFF']?.value,t102=D['T10Y2Y']?.value,vix=D['VIXCLS']?.value;
-  const sigs=[
-    {icon:'👷',name:'就業市場',val:u!=null?u.toFixed(1)+'%':'—',sig:u<4?'bull':u<5.5?'neu':'bear',label:u<4?'TIGHT':u<5.5?'SOFTENING':'WEAK'},
-    {icon:'📋',name:'初領失業金',val:ic!=null?ic.toFixed(0)+'K':'—',sig:ic<220?'bull':ic<280?'neu':'bear',label:ic<220?'HEALTHY':ic<280?'WATCH':'STRESS'},
-    {icon:'🔥',name:'通膨CPI',val:cpi!=null?cpi.toFixed(1)+'%':'—',sig:cpi<2.5?'bull':cpi<4?'neu':'bear',label:cpi<2.5?'COOL':cpi<4?'ELEVATED':'HOT'},
-    {icon:'🏦',name:'聯準會利率',val:ffr!=null?ffr.toFixed(2)+'%':'—',sig:ffr<2?'bull':ffr<4.5?'neu':'bear',label:ffr<2?'EASY':ffr<4.5?'NEUTRAL':'RESTRICTIVE'},
-    {icon:'📉',name:'殖利率曲線',val:t102!=null?t102.toFixed(2)+'%':'—',sig:t102>0.5?'bull':t102>0?'neu':'bear',label:t102>0.5?'NORMAL':t102>0?'FLAT':'INVERTED'},
-    {icon:'😨',name:'VIX恐慌',val:vix!=null?vix.toFixed(1):'—',sig:vix<15?'bull':vix<25?'neu':'bear',label:vix<15?'LOW':vix<25?'MODERATE':'HIGH FEAR'},
+
+function renderCycle() {
+  var u = D['UNRATE'] ? D['UNRATE'].value : null;
+  var ic = D['ICSA'] ? D['ICSA'].value / 1000 : null;
+  var cpi = D['CPIAUCSL'] ? D['CPIAUCSL'].value : null;
+  var ffr = D['DFF'] ? D['DFF'].value : null;
+  var t102 = D['T10Y2Y'] ? D['T10Y2Y'].value : null;
+  var vix = D['VIXCLS'] ? D['VIXCLS'].value : null;
+  var sigs = [
+    {icon:'👷',name:'就業市場',val:u!=null?u.toFixed(1)+'%':'-',sig:u!=null?(u<4?'bull':u<5.5?'neu':'bear'):'neu',label:u!=null?(u<4?'TIGHT':u<5.5?'SOFTENING':'WEAK'):'-'},
+    {icon:'📋',name:'初領失業金',val:ic!=null?ic.toFixed(0)+'K':'-',sig:ic!=null?(ic<220?'bull':ic<280?'neu':'bear'):'neu',label:ic!=null?(ic<220?'HEALTHY':ic<280?'WATCH':'STRESS'):'-'},
+    {icon:'🔥',name:'通膨CPI',val:cpi!=null?cpi.toFixed(1)+'%':'-',sig:cpi!=null?(cpi<2.5?'bull':cpi<4?'neu':'bear'):'neu',label:cpi!=null?(cpi<2.5?'COOL':cpi<4?'ELEVATED':'HOT'):'-'},
+    {icon:'🏦',name:'聯準會利率',val:ffr!=null?ffr.toFixed(2)+'%':'-',sig:ffr!=null?(ffr<2?'bull':ffr<4.5?'neu':'bear'):'neu',label:ffr!=null?(ffr<2?'EASY':ffr<4.5?'NEUTRAL':'RESTRICTIVE'):'-'},
+    {icon:'📉',name:'殖利率曲線',val:t102!=null?t102.toFixed(2)+'%':'-',sig:t102!=null?(t102>0.5?'bull':t102>0?'neu':'bear'):'neu',label:t102!=null?(t102>0.5?'NORMAL':t102>0?'FLAT':'INVERTED'):'-'},
+    {icon:'😨',name:'VIX恐慌',val:vix!=null?vix.toFixed(1):'-',sig:vix!=null?(vix<15?'bull':vix<25?'neu':'bear'):'neu',label:vix!=null?(vix<15?'LOW':vix<25?'MODERATE':'HIGH FEAR'):'-'}
   ];
-  const bulls=sigs.filter(s=>s.sig==='bull').length,bears=sigs.filter(s=>s.sig==='bear').length;
-  let phase,pc,offset;
-  if(bears>=4||(t102<0&&bears>=2)){phase='衰退';pc='#f87171';offset=-175.93;}
-  else if(bulls>=4&&(cpi==null||cpi<3)){phase='擴張';pc='#34d399';offset=0;}
-  else if(bulls>=3&&cpi>3.5){phase='過熱';pc='#fbbf24';offset=-87.96;}
-  else if(bears>=2){phase='衰退';pc='#f87171';offset=-175.93;}
-  else{phase='復甦';pc='#38bdf8';offset=-263.89;}
-  document.getElementById('c-phase').textContent=phase;
-  document.getElementById('c-phase').style.color=pc;
-  document.getElementById('c-sub').textContent='Bull:'+bulls+' Bear:'+bears;
-  const ring=document.getElementById('ring-ind');ring.style.stroke=pc;ring.style.strokeDashoffset=offset;
-  const el=document.getElementById('c-sigs');
-  el.innerHTML='<div style="font-size:8px;color:var(--text2);letter-spacing:2px;margin-bottom:6px">景氣訊號輸入</div>';
-  sigs.forEach(s=>{
-    const sc=s.sig==='bull'?'sig-bull':s.sig==='bear'?'sig-bear':'sig-neu';
-    el.innerHTML+=`<div class="cs-row"><div class="cs-icon">${s.icon}</div><div class="cs-name">${s.name}</div><div class="cs-val">${s.val}</div><div class="cs-sig ${sc}">${s.label}</div></div>`;
+  var bulls = 0, bears = 0;
+  sigs.forEach(function(s) { if (s.sig === 'bull') bulls++; if (s.sig === 'bear') bears++; });
+  var phase, pc, offset;
+  if (bears >= 4 || (t102 != null && t102 < 0 && bears >= 2)) { phase = '衰退'; pc = '#f87171'; offset = -175.93; }
+  else if (bulls >= 4 && (cpi == null || cpi < 3)) { phase = '擴張'; pc = '#34d399'; offset = 0; }
+  else if (bulls >= 3 && cpi != null && cpi > 3.5) { phase = '過熱'; pc = '#fbbf24'; offset = -87.96; }
+  else if (bears >= 2) { phase = '衰退'; pc = '#f87171'; offset = -175.93; }
+  else { phase = '復甦'; pc = '#38bdf8'; offset = -263.89; }
+  document.getElementById('c-phase').textContent = phase;
+  document.getElementById('c-phase').style.color = pc;
+  document.getElementById('c-sub').textContent = 'Bull:' + bulls + ' Bear:' + bears;
+  var ring = document.getElementById('ring-ind');
+  ring.style.stroke = pc; ring.style.strokeDashoffset = offset;
+  var el = document.getElementById('c-sigs');
+  el.innerHTML = '<div style="font-size:8px;color:var(--text2);letter-spacing:2px;margin-bottom:6px">景氣訊號輸入</div>';
+  sigs.forEach(function(s) {
+    var sc = s.sig === 'bull' ? 'sig-bull' : s.sig === 'bear' ? 'sig-bear' : 'sig-neu';
+    el.innerHTML += '<div class="cs-row"><div class="cs-icon">' + s.icon + '</div><div class="cs-name">' + s.name + '</div><div class="cs-val">' + s.val + '</div><div class="cs-sig ' + sc + '">' + s.label + '</div></div>';
   });
 }
-function renderCalendar(){
-  const now=new Date(),sorted=[...EVENTS].sort((a,b)=>new Date(a.date)-new Date(b.date));
-  const tb=document.getElementById('cal-body');tb.innerHTML='';
-  sorted.forEach(ev=>{
-    const d=new Date(ev.date),diff=Math.ceil((d-now)/86400000);
-    const isPast=diff<0,isToday=diff===0;
-    const dc=isPast?'var(--text2)':diff<=3?'var(--red)':diff<=7?'var(--yellow)':'var(--bright)';
-    const ic=ev.impact==='high'?'imp-high':ev.impact==='med'?'imp-med':'imp-low';
-    tb.innerHTML+=`<tr class="${isToday?'today':''}"><td><span class="days-chip" style="color:${dc}">${isPast?'已過':isToday?'今日':diff+'天'}</span></td><td style="color:var(--bright);font-weight:600">${ev.name}</td><td>${ev.date}</td><td style="color:var(--text2);font-size:9px">${ev.freq}</td><td><span class="imp-badge ${ic}">${ev.impact}</span></td><td style="color:var(--text2);font-size:9px">${ev.src}</td><td style="color:var(--text2);font-size:9px">${ev.note}</td></tr>`;
+
+function renderCalendar() {
+  var now = new Date();
+  var sorted = EVENTS.slice().sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+  var tb = document.getElementById('cal-body');
+  tb.innerHTML = '';
+  sorted.forEach(function(ev) {
+    var d = new Date(ev.date);
+    var diff = Math.ceil((d - now) / 86400000);
+    var isPast = diff < 0, isToday = diff === 0;
+    var dc = isPast ? 'var(--text2)' : diff <= 3 ? 'var(--red)' : diff <= 7 ? 'var(--yellow)' : 'var(--bright)';
+    var ic = ev.impact === 'high' ? 'imp-high' : ev.impact === 'med' ? 'imp-med' : 'imp-low';
+    var dayTxt = isPast ? '已過' : isToday ? '今日' : diff + '天';
+    tb.innerHTML += '<tr><td><span class="days-chip" style="color:' + dc + '">' + dayTxt + '</span></td><td style="color:var(--bright);font-weight:600">' + ev.name + '</td><td>' + ev.date + '</td><td style="color:var(--text2);font-size:9px">' + ev.freq + '</td><td><span class="imp-badge ' + ic + '">' + ev.impact + '</span></td><td style="color:var(--text2);font-size:9px">' + ev.src + '</td><td style="color:var(--text2);font-size:9px">' + ev.note + '</td></tr>';
   });
 }
-function renderMatrix(){
-  const chip=(dir,lbl)=>{const c=dir==='bull'?'cup':dir==='bear'?'cdn':'cne',a=dir==='bull'?'▲':dir==='bear'?'▼':'—';return `<span class="chip ${c}">${a} ${lbl}</span>`;};
-  const tb=document.getElementById('mx-body');tb.innerHTML='';
-  MATRIX.forEach(r=>{tb.innerHTML+=`<tr><td><div class="mx-scen">${r.s}</div><div class="mx-cond">${r.c}</div></td><td>${chip(r.stock,'美股')}</td><td>${chip(r.bond,'美債')}</td><td>${chip(r.usd,'美元')}</td><td>${chip(r.tw,'台股')}</td><td>${chip(r.com,'商品')}</td><td>${chip(r.gold,'黃金')}</td></tr>`;});
+
+function renderMatrix() {
+  function chip(dir, lbl) {
+    var c = dir === 'bull' ? 'cup' : dir === 'bear' ? 'cdn' : 'cne';
+    var a = dir === 'bull' ? '▲' : dir === 'bear' ? '▼' : '-';
+    return '<span class="chip ' + c + '">' + a + ' ' + lbl + '</span>';
+  }
+  var tb = document.getElementById('mx-body');
+  tb.innerHTML = '';
+  MATRIX.forEach(function(r) {
+    tb.innerHTML += '<tr><td><div class="mx-scen">' + r.s + '</div><div class="mx-cond">' + r.c + '</div></td><td>' + chip(r.stock, '美股') + '</td><td>' + chip(r.bond, '美債') + '</td><td>' + chip(r.usd, '美元') + '</td><td>' + chip(r.tw, '台股') + '</td><td>' + chip(r.com, '商品') + '</td><td>' + chip(r.gold, '黃金') + '</td></tr>';
+  });
 }
-function renderLiqBanner(){
-  const walcl=D['WALCL']?.value,rrp=D['RRPONTSYD']?.value,ffr=D['DFF']?.value,vix=D['VIXCLS']?.value,hy=D['BAMLH0A0HYM2']?.value;
-  if(walcl&&rrp!=null){const fedT=walcl/1000000,rrpT=rrp/1000,net=fedT-0.7-rrpT,cls=net<5.2?'tight':net<5.8?'neutral':'loose';document.getElementById('nlb-v').textContent='$'+net.toFixed(2)+'T';document.getElementById('nlb-v').className='nlb-v '+cls;document.getElementById('nlb-f').innerHTML='<span>Fed BS: $'+fedT.toFixed(2)+'T</span> − TGA ~$0.7T − <span>RRP: $'+rrpT.toFixed(3)+'T</span>';}
-  if(ffr!=null){document.getElementById('fund-v').textContent=ffr>4.5?'STRESSED':ffr>3?'MODERATE':'EASY';document.getElementById('fund-v').style.color=ffr>4.5?'var(--red)':ffr>3?'var(--yellow)':'var(--green)';document.getElementById('fund-d').textContent='FFR: '+ffr.toFixed(2)+'%';}
-  if(rrp!=null){document.getElementById('sys-v').textContent=rrp<100?'TIGHT':rrp<500?'MODERATE':'LOOSE';document.getElementById('sys-v').style.color=rrp<100?'var(--red)':rrp<500?'var(--yellow)':'var(--green)';document.getElementById('sys-d').textContent='RRP: $'+rrp.toFixed(1)+'B';}
-  if(vix!=null&&hy!=null){const s=(vix>25||hy>5)?'HIGH STRESS':(vix>18||hy>4)?'MODERATE':'STABLE';document.getElementById('mkt-v').textContent=s;document.getElementById('mkt-v').style.color=s==='HIGH STRESS'?'var(--red)':s==='MODERATE'?'var(--yellow)':'var(--green)';document.getElementById('mkt-d').textContent='VIX:'+vix.toFixed(1)+' HY:'+hy.toFixed(2)+'%';}
+
+function renderLiqBanner() {
+  var walcl = D['WALCL'] ? D['WALCL'].value : null;
+  var rrp = D['RRPONTSYD'] ? D['RRPONTSYD'].value : null;
+  var ffr = D['DFF'] ? D['DFF'].value : null;
+  var vix = D['VIXCLS'] ? D['VIXCLS'].value : null;
+  var hy = D['BAMLH0A0HYM2'] ? D['BAMLH0A0HYM2'].value : null;
+  if (walcl != null && rrp != null) {
+    var fedT = walcl / 1000000, rrpT = rrp / 1000, net = fedT - 0.7 - rrpT;
+    var cls = net < 5.2 ? 'tight' : net < 5.8 ? 'neutral' : 'loose';
+    document.getElementById('nlb-v').textContent = '$' + net.toFixed(2) + 'T';
+    document.getElementById('nlb-v').className = 'nlb-v ' + cls;
+    document.getElementById('nlb-f').innerHTML = '<span>Fed BS: $' + fedT.toFixed(2) + 'T</span> - TGA ~$0.7T - <span>RRP: $' + rrpT.toFixed(3) + 'T</span>';
+  }
+  if (rrp != null) {
+    var sv = rrp < 100 ? 'TIGHT' : rrp < 500 ? 'MODERATE' : 'LOOSE';
+    var sc = rrp < 100 ? 'var(--red)' : rrp < 500 ? 'var(--yellow)' : 'var(--green)';
+    document.getElementById('sys-v').textContent = sv;
+    document.getElementById('sys-v').style.color = sc;
+    document.getElementById('sys-d').textContent = 'RRP: $' + rrp.toFixed(1) + 'B';
+  }
+  if (ffr != null) {
+    var fv = ffr > 4.5 ? 'STRESSED' : ffr > 3 ? 'MODERATE' : 'EASY';
+    var fc = ffr > 4.5 ? 'var(--red)' : ffr > 3 ? 'var(--yellow)' : 'var(--green)';
+    document.getElementById('fund-v').textContent = fv;
+    document.getElementById('fund-v').style.color = fc;
+    document.getElementById('fund-d').textContent = 'FFR: ' + ffr.toFixed(2) + '%';
+  }
+  if (vix != null && hy != null) {
+    var mv = (vix > 25 || hy > 5) ? 'HIGH STRESS' : (vix > 18 || hy > 4) ? 'MODERATE' : 'STABLE';
+    var mc = mv === 'HIGH STRESS' ? 'var(--red)' : mv === 'MODERATE' ? 'var(--yellow)' : 'var(--green)';
+    document.getElementById('mkt-v').textContent = mv;
+    document.getElementById('mkt-v').style.color = mc;
+    document.getElementById('mkt-d').textContent = 'VIX:' + vix.toFixed(1) + ' HY:' + hy.toFixed(2) + '%';
+  }
 }
-function renderLiqChart(){
-  const ov=document.getElementById('chart-ov'),canvas=document.getElementById('liq-chart');
-  const wh=D['WALCL']?.history||[],rh=D['RRPONTSYD']?.history||[];
-  if(!wh.length){ov.innerHTML='<div style="color:var(--text2)">載入中...</div>';return;}
-  ov.style.display='none';
-  const rrpMap={};rh.forEach(d=>{rrpMap[d.date]=d.v;});
-  const pts=wh.map(d=>({date:d.date.slice(0,7),fedBs:+(d.v/1000000).toFixed(3),netLiq:+((d.v/1000000)-0.7-((rrpMap[d.date]||0)/1000)).toFixed(3)}));
-  const W=canvas.parentElement.clientWidth-36,H=220;canvas.width=W;canvas.height=H;
-  const ctx=canvas.getContext('2d'),pad={t:14,r:14,b:32,l:48},cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
-  const allV=pts.flatMap(p=>[p.fedBs,p.netLiq]),mn=Math.min(...allV)-.15,mx=Math.max(...allV)+.15;
-  const xS=i=>pad.l+(i/(pts.length-1))*cW,yS=v=>pad.t+cH-((v-mn)/(mx-mn))*cH;
-  ctx.clearRect(0,0,W,H);
-  for(let i=0;i<=4;i++){const y=pad.t+(i/4)*cH;ctx.strokeStyle='rgba(26,37,53,.8)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cW,y);ctx.stroke();ctx.fillStyle='#475569';ctx.font='9px IBM Plex Mono';ctx.fillText((mx-i*(mx-mn)/4).toFixed(1)+'T',2,y+3);}
-  const step=Math.floor(pts.length/6);pts.forEach((p,i)=>{if(i%step===0){ctx.fillStyle='#475569';ctx.font='8px IBM Plex Mono';ctx.fillText(p.date,xS(i)-16,H-6);}});
-  ctx.beginPath();ctx.strokeStyle='rgba(52,211,153,.4)';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);pts.forEach((p,i)=>i===0?ctx.moveTo(xS(i),yS(p.fedBs)):ctx.lineTo(xS(i),yS(p.fedBs)));ctx.stroke();ctx.setLineDash([]);
-  const g=ctx.createLinearGradient(0,pad.t,0,pad.t+cH);g.addColorStop(0,'rgba(56,189,248,.2)');g.addColorStop(1,'rgba(56,189,248,0)');
-  ctx.beginPath();pts.forEach((p,i)=>i===0?ctx.moveTo(xS(i),yS(p.netLiq)):ctx.lineTo(xS(i),yS(p.netLiq)));ctx.lineTo(xS(pts.length-1),pad.t+cH);ctx.lineTo(pad.l,pad.t+cH);ctx.closePath();ctx.fillStyle=g;ctx.fill();
-  ctx.beginPath();ctx.strokeStyle='#38bdf8';ctx.lineWidth=2;pts.forEach((p,i)=>i===0?ctx.moveTo(xS(i),yS(p.netLiq)):ctx.lineTo(xS(i),yS(p.netLiq)));ctx.stroke();
-  const last=pts[pts.length-1];ctx.beginPath();ctx.arc(xS(pts.length-1),yS(last.netLiq),4,0,Math.PI*2);ctx.fillStyle='#38bdf8';ctx.fill();ctx.fillStyle='#e2e8f0';ctx.font='bold 10px IBM Plex Mono';ctx.fillText('$'+last.netLiq+'T',xS(pts.length-1)-30,yS(last.netLiq)-8);
+
+function renderLiqChart() {
+  var ov = document.getElementById('chart-ov');
+  var canvas = document.getElementById('liq-chart');
+  var wh = D['WALCL'] ? D['WALCL'].history : [];
+  var rh = D['RRPONTSYD'] ? D['RRPONTSYD'].history : [];
+  if (!wh.length) { ov.innerHTML = '<div style="color:var(--text2)">載入中...</div>'; return; }
+  ov.style.display = 'none';
+  var rrpMap = {};
+  rh.forEach(function(d) { rrpMap[d.date] = d.v; });
+  var pts = wh.map(function(d) {
+    return { date: d.date.slice(0, 7), fedBs: +(d.v / 1000000).toFixed(3), netLiq: +((d.v / 1000000) - 0.7 - ((rrpMap[d.date] || 0) / 1000)).toFixed(3) };
+  });
+  var W = canvas.parentElement.clientWidth - 36, H = 220;
+  canvas.width = W; canvas.height = H;
+  var ctx = canvas.getContext('2d');
+  var pad = {t:14, r:14, b:32, l:48};
+  var cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
+  var allV = [];
+  pts.forEach(function(p) { allV.push(p.fedBs); allV.push(p.netLiq); });
+  var mn = Math.min.apply(null, allV) - 0.15, mx = Math.max.apply(null, allV) + 0.15;
+  var xS = function(i) { return pad.l + (i / (pts.length - 1)) * cW; };
+  var yS = function(v) { return pad.t + cH - ((v - mn) / (mx - mn)) * cH; };
+  ctx.clearRect(0, 0, W, H);
+  for (var i = 0; i <= 4; i++) {
+    var y = pad.t + (i / 4) * cH;
+    ctx.strokeStyle = 'rgba(26,37,53,.8)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cW, y); ctx.stroke();
+    ctx.fillStyle = '#475569'; ctx.font = '9px IBM Plex Mono';
+    ctx.fillText((mx - i * (mx - mn) / 4).toFixed(1) + 'T', 2, y + 3);
+  }
+  var step = Math.floor(pts.length / 6);
+  pts.forEach(function(p, i) {
+    if (i % step === 0) { ctx.fillStyle = '#475569'; ctx.font = '8px IBM Plex Mono'; ctx.fillText(p.date, xS(i) - 16, H - 6); }
+  });
+  ctx.beginPath(); ctx.strokeStyle = 'rgba(52,211,153,.4)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+  pts.forEach(function(p, i) { i === 0 ? ctx.moveTo(xS(i), yS(p.fedBs)) : ctx.lineTo(xS(i), yS(p.fedBs)); });
+  ctx.stroke(); ctx.setLineDash([]);
+  var g = ctx.createLinearGradient(0, pad.t, 0, pad.t + cH);
+  g.addColorStop(0, 'rgba(56,189,248,.2)'); g.addColorStop(1, 'rgba(56,189,248,0)');
+  ctx.beginPath();
+  pts.forEach(function(p, i) { i === 0 ? ctx.moveTo(xS(i), yS(p.netLiq)) : ctx.lineTo(xS(i), yS(p.netLiq)); });
+  ctx.lineTo(xS(pts.length - 1), pad.t + cH); ctx.lineTo(pad.l, pad.t + cH);
+  ctx.closePath(); ctx.fillStyle = g; ctx.fill();
+  ctx.beginPath(); ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2;
+  pts.forEach(function(p, i) { i === 0 ? ctx.moveTo(xS(i), yS(p.netLiq)) : ctx.lineTo(xS(i), yS(p.netLiq)); });
+  ctx.stroke();
+  var last = pts[pts.length - 1];
+  ctx.beginPath(); ctx.arc(xS(pts.length - 1), yS(last.netLiq), 4, 0, Math.PI * 2);
+  ctx.fillStyle = '#38bdf8'; ctx.fill();
+  ctx.fillStyle = '#e2e8f0'; ctx.font = 'bold 10px IBM Plex Mono';
+  ctx.fillText('$' + last.netLiq + 'T', xS(pts.length - 1) - 30, yS(last.netLiq) - 8);
 }
-function renderLiqTable(){
-  const tb=document.getElementById('liq-tbl');tb.innerHTML='';
-  LIQ.forEach(ind=>{const d=D[ind.id],raw=d?.value,disp=raw!=null?(raw/ind.div).toFixed(ind.dec)+' '+ind.unit:'—',sig=raw!=null?ind.sig(raw/ind.div):'neu',sc=sig==='bull'?'sig-bull':sig==='bear'?'sig-bear':'sig-neu',chg=raw!=null&&d.prev!=null?((raw-d.prev)/Math.abs(d.prev)*100).toFixed(2):null;tb.innerHTML+=`<tr><td style="font-size:8px;color:var(--text2)">${ind.cat}</td><td><div class="td-name">${ind.name}</div><div class="td-desc">${ind.desc}</div></td><td style="font-family:'Syne',sans-serif;font-size:14px;font-weight:600;color:${ind.color}">${disp}</td><td>${chg!=null?`<span style="font-size:9px;color:${chg>0?'var(--green)':'var(--red)'}"> ${chg>0?'▲':'▼'} ${Math.abs(chg)}%</span>`:'—'}</td><td><div class="g-sig ${sc}">${ind.sigs[sig]}</div></td><td><a href="${ind.src}" target="_blank" style="font-size:9px;color:var(--accent);text-decoration:none">${ind.id} ↗</a></td></tr>`;});
+
+function renderLiqTable() {
+  var tb = document.getElementById('liq-tbl');
+  tb.innerHTML = '';
+  LIQ.forEach(function(ind) {
+    var d = D[ind.id], raw = d ? d.value : null;
+    var disp = raw != null ? (raw / ind.div).toFixed(ind.dec) + ' ' + ind.unit : '-';
+    var sig = raw != null ? ind.sig(raw / ind.div) : 'neu';
+    var sc = sig === 'bull' ? 'sig-bull' : sig === 'bear' ? 'sig-bear' : 'sig-neu';
+    var chg = raw != null && d.prev != null ? ((raw - d.prev) / Math.abs(d.prev) * 100).toFixed(2) : null;
+    var chgHtml = chg != null ? '<span style="font-size:9px;color:' + (chg > 0 ? 'var(--green)' : 'var(--red)') + '">' + (chg > 0 ? 'UP' : 'DN') + ' ' + Math.abs(chg) + '%</span>' : '-';
+    tb.innerHTML += '<tr><td style="font-size:8px;color:var(--text2)">' + ind.cat + '</td><td><div class="td-name">' + ind.name + '</div><div class="td-desc">' + ind.desc + '</div></td><td style="font-family:Syne,sans-serif;font-size:14px;font-weight:600;color:' + ind.color + '">' + disp + '</td><td>' + chgHtml + '</td><td><div class="g-sig ' + sc + '">' + ind.sigs[sig] + '</div></td><td><a href="' + ind.src + '" target="_blank" style="font-size:9px;color:var(--accent);text-decoration:none">' + ind.id + '</a></td></tr>';
+  });
 }
-function renderSentiment(){
-  const grid=document.getElementById('sent-grid');
-  const cards=[
-    {title:'🇺🇸 美國 — 機構籌碼',rows:[{label:'NYSE Margin Debt',val:'~$798B',sig:'neu',sl:'ELEVATED'},{label:'Short Interest S&P',val:'~2.8%',sig:'bull',sl:'LOW SHORT'},{label:'AAII Bull/Bear',val:'Bull 28% Bear 42%',sig:'bear',sl:'BEARISH'}],note:'Margin Debt高=市場槓桿大，AAII極度悲觀通常是底部訊號。',src:'FINRA/AAII',links:[{label:'FRED Margin Debt',url:'https://fred.stlouisfed.org/series/BOGZ1FL663067003Q'},{label:'AAII Sentiment',url:'https://www.aaii.com/sentimentsurvey'}]},
-    {title:'🇺🇸 美國 — COT期貨部位',rows:[{label:'S&P大型投機多單',val:'每週五更新',sig:'neu',sl:'CHECK CFTC'},{label:'黃金大型投機凈多',val:'每週五更新',sig:'neu',sl:'CHECK CFTC'},{label:'美元大型投機多單',val:'每週五更新',sig:'neu',sl:'CHECK CFTC'}],note:'COT是CFTC每週公布的期貨持倉報告，是機構方向最直接的公開數據。',src:'CFTC',links:[{label:'CFTC COT Report',url:'https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm'}]},
-    {title:'🇹🇼 台灣 — 三大法人',rows:[{label:'外資買賣超（日）',val:'點連結查最新',sig:'neu',sl:'TWSE DAILY'},{label:'投信買賣超（日）',val:'點連結查最新',sig:'neu',sl:'TWSE DAILY'},{label:'自營商買賣超（日）',val:'點連結查最新',sig:'neu',sl:'TWSE DAILY'}],note:'外資連續買超帶動台股上漲，連續賣超需注意。搭配匯率觀察更準確。',src:'TWSE',links:[{label:'三大法人買賣超',url:'https://www.twse.com.tw/zh/trading/fund/t86.html'},{label:'外資持股統計',url:'https://www.twse.com.tw/zh/trading/fund/MI_QFIIS.html'}]},
-    {title:'🇹🇼 台灣 — 融資融券',rows:[{label:'融資餘額（億）',val:'點連結查最新',sig:'neu',sl:'TWSE DAILY'},{label:'融券餘額（張）',val:'點連結查最新',sig:'neu',sl:'TWSE DAILY'},{label:'融資使用率',val:'點連結查最新',sig:'neu',sl:'WATCH'}],note:'游庭皓框架：融資高位不宜追多，等去槓桿後再布局。融資減少+股價不跌=健康洗盤。',src:'TWSE',links:[{label:'融資融券餘額',url:'https://www.twse.com.tw/zh/trading/margin/MI_MARGN.html'}]},
+
+function renderSentiment() {
+  var grid = document.getElementById('sent-grid');
+  var cards = [
+    {title:'🇺🇸 美國 機構籌碼',rows:[{label:'NYSE Margin Debt',val:'~$798B',sig:'neu',sl:'ELEVATED'},{label:'Short Interest S&P',val:'~2.8%',sig:'bull',sl:'LOW SHORT'},{label:'AAII Bull/Bear',val:'Bull 28% Bear 42%',sig:'bear',sl:'BEARISH'}],note:'Margin Debt高代表市場槓桿大。AAII極度悲觀通常是底部訊號。',src:'FINRA/AAII',links:[{label:'FRED Margin Debt',url:'https://fred.stlouisfed.org/series/BOGZ1FL663067003Q'},{label:'AAII Sentiment',url:'https://www.aaii.com/sentimentsurvey'}]},
+    {title:'🇺🇸 美國 COT期貨部位',rows:[{label:'S&P大型投機多單',val:'每週五更新',sig:'neu',sl:'CHECK CFTC'},{label:'黃金大型投機凈多',val:'每週五更新',sig:'neu',sl:'CHECK CFTC'},{label:'美元大型投機多單',val:'每週五更新',sig:'neu',sl:'CHECK CFTC'}],note:'COT是CFTC每週公布的期貨持倉報告，是機構方向最直接的公開數據。',src:'CFTC',links:[{label:'CFTC COT Report',url:'https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm'}]},
+    {title:'🇹🇼 台灣 三大法人',rows:[{label:'外資買賣超',val:'點連結查最新',sig:'neu',sl:'TWSE DAILY'},{label:'投信買賣超',val:'點連結查最新',sig:'neu',sl:'TWSE DAILY'},{label:'自營商買賣超',val:'點連結查最新',sig:'neu',sl:'TWSE DAILY'}],note:'外資連續買超帶動台股上漲，連續賣超需注意。搭配匯率觀察更準確。',src:'TWSE',links:[{label:'三大法人買賣超',url:'https://www.twse.com.tw/zh/trading/fund/t86.html'},{label:'外資持股統計',url:'https://www.twse.com.tw/zh/trading/fund/MI_QFIIS.html'}]},
+    {title:'🇹🇼 台灣 融資融券',rows:[{label:'融資餘額',val:'點連結查最新',sig:'neu',sl:'TWSE DAILY'},{label:'融券餘額',val:'點連結查最新',sig:'neu',sl:'TWSE DAILY'},{label:'融資使用率',val:'點連結查最新',sig:'neu',sl:'WATCH'}],note:'游庭皓框架：融資高位不宜追多，等去槓桿後再布局。融資減少加股價不跌等於健康洗盤。',src:'TWSE',links:[{label:'融資融券餘額',url:'https://www.twse.com.tw/zh/trading/margin/MI_MARGN.html'}]}
   ];
-  grid.innerHTML='';
-  cards.forEach(card=>{
-    const lh=card.links.map(l=>`<a href="${l.url}" target="_blank">${l.label} ↗</a>`).join(' · ');
-    const rh=card.rows.map(r=>{const sc=r.sig==='bull'?'sig-bull':r.sig==='bear'?'sig-bear':'sig-neu';return `<div class="sent-row"><span class="sent-label">${r.label}</span><div style="display:flex;align-items:center;gap:8px"><span style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--bright)">${r.val}</span><span class="g-sig ${sc}" style="font-size:7px">${r.sl}</span></div></div>`;}).join('');
-    grid.innerHTML+=`<div class="sent-card"><h4>${card.title}</h4>${rh}<div class="sent-note">${card.note}</div><div class="sent-src">來源：${card.src} · ${lh}</div></div>`;
+  grid.innerHTML = '';
+  cards.forEach(function(card) {
+    var lh = card.links.map(function(l) { return '<a href="' + l.url + '" target="_blank">' + l.label + '</a>'; }).join(' · ');
+    var rh = card.rows.map(function(r) {
+      var sc = r.sig === 'bull' ? 'sig-bull' : r.sig === 'bear' ? 'sig-bear' : 'sig-neu';
+      return '<div class="sent-row"><span class="sent-label">' + r.label + '</span><div style="display:flex;align-items:center;gap:8px"><span style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:var(--bright)">' + r.val + '</span><span class="g-sig ' + sc + '" style="font-size:7px">' + r.sl + '</span></div></div>';
+    }).join('');
+    grid.innerHTML += '<div class="sent-card"><h4>' + card.title + '</h4>' + rh + '<div class="sent-note">' + card.note + '</div><div class="sent-src">來源：' + card.src + ' · ' + lh + '</div></div>';
   });
 }
-async function loadAll(){
-  const btn=document.getElementById('ref-btn');btn.classList.add('loading');btn.textContent='載入中...';
-  const ids=[...new Set([...MACRO,...LIQ].map(i=>i.id))];
-  await Promise.all(ids.map(async id=>{const obs=await fredFetch(id,26);if(!obs||!obs.length)return;D[id]={value:parseFloat(obs[0].value),date:obs[0].date,prev:obs[1]?parseFloat(obs[1].value):null,history:obs.slice().reverse().map(o=>({date:o.date,v:parseFloat(o.value)}));};}));
-  renderGauges(MACRO,'macro-g',true);renderCycle();renderGauges(LIQ,'liq-g',false);renderLiqBanner();renderLiqChart();renderLiqTable();
-  document.getElementById('ts').textContent=new Date().toLocaleString('zh-TW');
-  btn.classList.remove('loading');btn.textContent='↺ REFRESH';
+
+function loadAll() {
+  var btn = document.getElementById('ref-btn');
+  btn.classList.add('loading'); btn.textContent = '載入中...';
+  var ids = [];
+  MACRO.concat(LIQ).forEach(function(ind) { if (ids.indexOf(ind.id) === -1) ids.push(ind.id); });
+  var promises = ids.map(function(id) {
+    return fredFetch(id, 26).then(function(obs) {
+      if (!obs || !obs.length) return;
+      D[id] = {
+        value: parseFloat(obs[0].value),
+        date: obs[0].date,
+        prev: obs[1] ? parseFloat(obs[1].value) : null,
+        history: obs.slice().reverse().map(function(o) { return {date: o.date, v: parseFloat(o.value)}; })
+      };
+    });
+  });
+  Promise.all(promises).then(function() {
+    renderGauges(MACRO, 'macro-g', true);
+    renderCycle();
+    renderGauges(LIQ, 'liq-g', false);
+    renderLiqBanner();
+    renderLiqChart();
+    renderLiqTable();
+    document.getElementById('ts').textContent = new Date().toLocaleString('zh-TW');
+    btn.classList.remove('loading'); btn.textContent = 'REFRESH';
+  });
 }
-function toggleAuto(){
-  autoOn=!autoOn;
-  const badge=document.getElementById('auto-badge'),btn=document.getElementById('auto-btn');
-  if(autoOn){badge.textContent='⏱ AUTO 30MIN';badge.style.color='var(--green)';badge.style.borderColor='var(--green)';btn.textContent='AUTO OFF';autoTimer=setInterval(loadAll,30*60*1000);}
-  else{badge.textContent='⏱ AUTO OFF';badge.style.color='var(--accent2)';badge.style.borderColor='var(--accent2)';btn.textContent='AUTO ON';clearInterval(autoTimer);}
+
+function toggleAuto() {
+  autoOn = !autoOn;
+  var badge = document.getElementById('auto-badge');
+  var btn = document.getElementById('auto-btn');
+  if (autoOn) {
+    badge.textContent = 'AUTO 30MIN'; badge.style.color = 'var(--green)'; badge.style.borderColor = 'var(--green)';
+    btn.textContent = 'AUTO OFF';
+    autoTimer = setInterval(loadAll, 30 * 60 * 1000);
+  } else {
+    badge.textContent = 'AUTO OFF'; badge.style.color = 'var(--accent2)'; badge.style.borderColor = 'var(--accent2)';
+    btn.textContent = 'AUTO ON';
+    clearInterval(autoTimer);
+  }
 }
-window.addEventListener('load',()=>{renderCalendar();renderMatrix();renderSentiment();loadAll();});
-window.addEventListener('resize',()=>{if(D['WALCL']?.history?.length)renderLiqChart();});
+
+window.addEventListener('load', function() {
+  renderCalendar();
+  renderMatrix();
+  renderSentiment();
+  loadAll();
+});
+
+window.addEventListener('resize', function() {
+  if (D['WALCL'] && D['WALCL'].history && D['WALCL'].history.length) renderLiqChart();
+});
 </script>
 </body>
 </html>
