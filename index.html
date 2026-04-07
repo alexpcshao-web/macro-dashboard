@@ -253,15 +253,16 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
 </div>
 <script>
 let autoTimer=null,autoOn=false;
-async function fredFetch(id,limit=26){
-  try{
-    const r=await fetch('/.netlify/functions/fred?series_id='+id+'&limit='+limit);
-    if(!r.ok)return null;
-    const j=await r.json();
-    const obs=(j.observations||[]).filter(o=>o.value!=='.'&&o.value!=='');
-    return obs.length?obs:null;
-  }catch{return null;}
+async function fredFetch(id, limit=26) {
+  try {
+    const r = await fetch('/.netlify/functions/fred?series_id='+id+'&limit='+limit);
+    if (!r.ok) return null;
+    const j = await r.json();
+    const obs = (j.observations||[]).filter(o=>o.value!=='.'&&o.value!=='');
+    return obs.length ? obs : null;
+  } catch { return null; }
 }
+```
 const MACRO=[
   {id:'UNRATE',name:'失業率',cat:'就業市場',unit:'%',dec:1,div:1,max:12,sig:v=>v<4?'bull':v<5.5?'neu':'bear',sigs:{bull:'TIGHT LABOR',neu:'SOFTENING',bear:'WEAK'},color:'#34d399',comment:{bull:'失業率偏低 → 就業強勁，聯準會無需急降息',neu:'就業放緩，聯準會開始觀望',bear:'失業攀升 → 降息概率大增，衰退風險升'}},
   {id:'ICSA',name:'初領失業金',cat:'就業市場',unit:'K',dec:0,div:1000,max:600,sig:v=>v<220?'bull':v<280?'neu':'bear',sigs:{bull:'HEALTHY',neu:'WATCH',bear:'LABOR STRESS'},color:'#f472b6',comment:{bull:'初領低位 → 裁員壓力小，景氣穩健',neu:'初領溫和上升，需持續觀察',bear:'初領攀升 → 企業裁員加速，衰退訊號'}},
