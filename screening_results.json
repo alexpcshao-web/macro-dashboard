@@ -1,0 +1,365 @@
+{
+  "updated_at": "2026-04-12 18:29",
+  "results": [
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "market": "美股",
+      "sector": "AI供應鏈/半導體",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "73.2% ✅",
+        "毛利率": "71.1% ✅",
+        "負債比": "7.3 ✅",
+        "自由現金流": "$58.1B ✅",
+        "前瞻P/E": "17.0 ✅",
+        "法人持股比例": "6761.8M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "AMD",
+      "name": "Advanced Micro Devices, Inc.",
+      "market": "美股",
+      "sector": "AI供應鏈/半導體",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "34.1% ✅",
+        "毛利率": "52.5% ✅",
+        "負債比": "6.4 ✅",
+        "自由現金流": "$4.6B ✅",
+        "前瞻P/E": "22.6 ✅",
+        "法人持股比例": "443.6M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom Inc.",
+      "market": "美股",
+      "sector": "AI供應鏈/半導體",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "29.5% ✅",
+        "毛利率": "76.7% ✅",
+        "負債比": "82.7 ✅",
+        "自由現金流": "$25.5B ✅",
+        "前瞻P/E": "20.8 ✅",
+        "法人持股比例": "1317.8M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "LRCX",
+      "name": "Lam Research Corporation",
+      "market": "美股",
+      "sector": "AI供應鏈/半導體",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "22.1% ✅",
+        "毛利率": "49.8% ✅",
+        "負債比": "44.2 ✅",
+        "自由現金流": "$4.8B ✅",
+        "前瞻P/E": "38.1 ✅",
+        "法人持股比例": "385.6M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "market": "美股",
+      "sector": "AI基礎建設",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "16.7% ✅",
+        "毛利率": "68.6% ✅",
+        "負債比": "31.5 ✅",
+        "自由現金流": "$53.6B ✅",
+        "前瞻P/E": "19.7 ✅",
+        "法人持股比例": "2009.6M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc.",
+      "market": "美股",
+      "sector": "AI基礎建設",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "18.0% ✅",
+        "毛利率": "59.7% ✅",
+        "負債比": "16.1 ✅",
+        "自由現金流": "$38.1B ✅",
+        "前瞻P/E": "23.6 ✅",
+        "法人持股比例": "1577.2M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms, Inc.",
+      "market": "美股",
+      "sector": "AI基礎建設",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "23.8% ✅",
+        "毛利率": "82.0% ✅",
+        "負債比": "39.2 ✅",
+        "自由現金流": "$23.4B ✅",
+        "前瞻P/E": "17.6 ✅",
+        "法人持股比例": "637.5M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "market": "美股",
+      "sector": "AI基礎建設",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "123.4% ✅",
+        "毛利率": "8.0% ✅",
+        "負債比": "75.3 ✅",
+        "自由現金流": "$0.1B ✅",
+        "前瞻P/E": "8.4 ✅",
+        "法人持股比例": "156.9M股（前5大） ⚠️"
+      },
+      "type": "代工/組裝"
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron Technology, Inc.",
+      "market": "美股",
+      "sector": "記憶體",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "196.3% ✅",
+        "毛利率": "58.4% ✅",
+        "負債比": "14.9 ✅",
+        "自由現金流": "$2.9B ✅",
+        "前瞻P/E": "4.3 ✅",
+        "法人持股比例": "357.9M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "2330.TW",
+      "name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "market": "台股",
+      "sector": "台灣半導體",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "20.5% ✅",
+        "毛利率": "59.9% ✅",
+        "負債比": "19.6 ✅",
+        "自由現金流": "$643.4B ✅",
+        "前瞻P/E": "17.7 ✅",
+        "法人持股比例": "0.0M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "2408.TW",
+      "name": "Nanya Technology Corporation",
+      "market": "台股",
+      "sector": "記憶體/封裝",
+      "score": 5,
+      "max_score": 5,
+      "score_pct": 100,
+      "details": {
+        "營收成長率": "357.7% ✅",
+        "毛利率": "22.5% ✅",
+        "負債比": "13.8 ✅",
+        "自由現金流": "$1.8B ✅",
+        "前瞻P/E": "6.0 ✅",
+        "法人持股比例": "無資料 ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "AMAT",
+      "name": "Applied Materials, Inc.",
+      "market": "美股",
+      "sector": "AI供應鏈/半導體",
+      "score": 4,
+      "max_score": 5,
+      "score_pct": 80,
+      "details": {
+        "營收成長率": "-2.1% ❌",
+        "毛利率": "48.7% ✅",
+        "負債比": "33.1 ✅",
+        "自由現金流": "$4.3B ✅",
+        "前瞻P/E": "28.5 ✅",
+        "法人持股比例": "241.3M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "DELL",
+      "name": "Dell Technologies Inc.",
+      "market": "美股",
+      "sector": "AI基礎建設",
+      "score": 4,
+      "max_score": 5,
+      "score_pct": 80,
+      "details": {
+        "營收成長率": "39.5% ✅",
+        "毛利率": "20.1% ✅",
+        "負債比": "無資料 ⚠️",
+        "自由現金流": "$6.6B ✅",
+        "前瞻P/E": "12.2 ✅",
+        "法人持股比例": "96.7M股（前5大） ⚠️"
+      },
+      "type": "代工/組裝"
+    },
+    {
+      "symbol": "2454.TW",
+      "name": "MediaTek Inc.",
+      "market": "台股",
+      "sector": "台灣半導體",
+      "score": 4,
+      "max_score": 5,
+      "score_pct": 80,
+      "details": {
+        "營收成長率": "8.8% ❌",
+        "毛利率": "47.5% ✅",
+        "負債比": "2.5 ✅",
+        "自由現金流": "$82.1B ✅",
+        "前瞻P/E": "16.1 ✅",
+        "法人持股比例": "無資料 ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "2379.TW",
+      "name": "Realtek Semiconductor Corp.",
+      "market": "台股",
+      "sector": "台灣半導體",
+      "score": 4,
+      "max_score": 5,
+      "score_pct": 80,
+      "details": {
+        "營收成長率": "-0.3% ❌",
+        "毛利率": "50.0% ✅",
+        "負債比": "21.8 ✅",
+        "自由現金流": "$12.8B ✅",
+        "前瞻P/E": "13.8 ✅",
+        "法人持股比例": "無資料 ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "2382.TW",
+      "name": "Quanta Computer Inc.",
+      "market": "台股",
+      "sector": "AI伺服器",
+      "score": 4,
+      "max_score": 5,
+      "score_pct": 80,
+      "details": {
+        "營收成長率": "53.0% ✅",
+        "毛利率": "7.0% ✅",
+        "負債比": "126.1 ✅",
+        "自由現金流": "-$46.4B ❌",
+        "前瞻P/E": "12.0 ✅",
+        "法人持股比例": "無資料 ⚠️"
+      },
+      "type": "代工/組裝"
+    },
+    {
+      "symbol": "6669.TW",
+      "name": "Wiwynn Corporation",
+      "market": "台股",
+      "sector": "AI伺服器",
+      "score": 4,
+      "max_score": 5,
+      "score_pct": 80,
+      "details": {
+        "營收成長率": "152.9% ✅",
+        "毛利率": "8.3% ✅",
+        "負債比": "83.5 ✅",
+        "自由現金流": "-$27.9B ❌",
+        "前瞻P/E": "8.9 ✅",
+        "法人持股比例": "6.6M股（前5大） ⚠️"
+      },
+      "type": "代工/組裝"
+    },
+    {
+      "symbol": "2317.TW",
+      "name": "Hon Hai Precision Industry Co., Ltd.",
+      "market": "台股",
+      "sector": "AI伺服器",
+      "score": 4,
+      "max_score": 5,
+      "score_pct": 80,
+      "details": {
+        "營收成長率": "22.3% ✅",
+        "毛利率": "6.1% ✅",
+        "負債比": "65.3 ✅",
+        "自由現金流": "-$4.8B ❌",
+        "前瞻P/E": "10.0 ✅",
+        "法人持股比例": "0.8M股（前5大） ⚠️"
+      },
+      "type": "代工/組裝"
+    },
+    {
+      "symbol": "KLAC",
+      "name": "KLA Corporation",
+      "market": "美股",
+      "sector": "AI供應鏈/半導體",
+      "score": 3,
+      "max_score": 5,
+      "score_pct": 60,
+      "details": {
+        "營收成長率": "7.2% ❌",
+        "毛利率": "61.6% ✅",
+        "負債比": "111.8 ❌",
+        "自由現金流": "$3.2B ✅",
+        "前瞻P/E": "36.3 ✅",
+        "法人持股比例": "41.6M股（前5大） ⚠️"
+      },
+      "type": "標準"
+    },
+    {
+      "symbol": "3711.TW",
+      "name": "ASE Technology Holding Co., Ltd.",
+      "market": "台股",
+      "sector": "記憶體/封裝",
+      "score": 3,
+      "max_score": 5,
+      "score_pct": 60,
+      "details": {
+        "營收成長率": "9.6% ❌",
+        "毛利率": "17.7% ✅",
+        "負債比": "70.6 ✅",
+        "自由現金流": "-$65.3B ❌",
+        "前瞻P/E": "19.3 ✅",
+        "法人持股比例": "無資料 ⚠️"
+      },
+      "type": "代工/組裝"
+    }
+  ]
+}

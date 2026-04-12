@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>選股篩選儀表板</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    padding: 24px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 { font-size: 1.4rem; font-weight: 700; }
+  header a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+  header a:hover { color: var(--text); }
+  .meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .filter-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    border-color: var(--blue);
+    color: var(--text);
+    background: rgba(59,130,246,0.1);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #3a3d4a; }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .symbol { font-size: 1.1rem; font-weight: 700; }
+  .name { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+  .badge-group { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .badge-market { background: rgba(59,130,246,0.15); color: var(--blue); }
+  .badge-sector { background: rgba(168,85,247,0.15); color: var(--purple); }
+  .badge-type   { background: rgba(245,158,11,0.1); color: var(--yellow); }
+  .score-bar-wrap {
+    margin-bottom: 14px;
+  }
+  .score-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    margin-bottom: 6px;
+  }
+  .score-pct { font-weight: 700; }
+  .score-pct.high   { color: var(--green); }
+  .score-pct.medium { color: var(--yellow); }
+  .score-pct.low    { color: var(--red); }
+  .bar-bg {
+    background: var(--border);
+    border-radius: 4px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+  }
+  .bar-fill.high   { background: var(--green); }
+  .bar-fill.medium { background: var(--yellow); }
+  .bar-fill.low    { background: var(--red); }
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+  }
+  .detail-key { color: var(--muted); }
+  .detail-val { font-weight: 500; }
+  .pass  { color: var(--green); }
+  .fail  { color: var(--red); }
+  .warn  { color: var(--yellow); }
+  .empty-state {
+    text-align: center;
+    color: var(--muted);
+    padding: 60px 0;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📊 選股篩選儀表板</h1>
+    <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">
+      基於游庭皓景氣投資法框架・擴張期板塊
+    </div>
+  </div>
+  <a href="/">← 返回總經儀表板</a>
+</header>
+
+<div class="meta" id="meta">載入中...</div>
+
+<div class="filters" id="filters">
+  <button class="filter-btn active" onclick="filterBy('all')">全部</button>
+  <button class="filter-btn" onclick="filterBy('美股')">美股</button>
+  <button class="filter-btn" onclick="filterBy('台股')">台股</button>
+  <button class="filter-btn" onclick="filterBy('100')">滿分 ⭐</button>
+  <button class="filter-btn" onclick="filterBy('AI供應鏈/半導體')">AI半導體</button>
+  <button class="filter-btn" onclick="filterBy('AI基礎建設')">AI基礎建設</button>
+  <button class="filter-btn" onclick="filterBy('台灣半導體')">台灣半導體</button>
+  <button class="filter-btn" onclick="filterBy('AI伺服器')">AI伺服器</button>
+  <button class="filter-btn" onclick="filterBy('記憶體')">記憶體</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+let allData = [];
+let currentFilter = 'all';
+
+async function loadData() {
+  try {
+    const res = await fetch('screening_results.json?t=' + Date.now());
+    const data = await res.json();
+    allData = data.results;
+    document.getElementById('meta').textContent =
+      `最後更新：${data.updated_at}・共 ${allData.length} 支股票`;
+    renderCards(allData);
+  } catch(e) {
+    document.getElementById('meta').textContent = '⚠️ 無法載入資料，請先執行 screener.py';
+    document.getElementById('grid').innerHTML =
+      '<div class="empty-state">請在本機執行 screener.py 並將 screening_results.json 推上 GitHub</div>';
+  }
+}
+
+function filterBy(key) {
+  currentFilter = key;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  let filtered = allData;
+  if (key === 'all') filtered = allData;
+  else if (key === '100') filtered = allData.filter(r => r.score_pct === 100);
+  else filtered = allData.filter(r => r.market === key || r.sector === key);
+
+  renderCards(filtered);
+}
+
+function scoreClass(pct) {
+  if (pct >= 80) return 'high';
+  if (pct >= 60) return 'medium';
+  return 'low';
+}
+
+function detailClass(val) {
+  if (val.includes('✅')) return 'pass';
+  if (val.includes('❌')) return 'fail';
+  return 'warn';
+}
+
+function renderCards(data) {
+  const grid = document.getElementById('grid');
+  if (data.length === 0) {
+    grid.innerHTML = '<div class="empty-state">沒有符合條件的股票</div>';
+    return;
+  }
+  grid.innerHTML = data.map(r => {
+    const cls = scoreClass(r.score_pct);
+    const detailRows = Object.entries(r.details).map(([k, v]) => `
+      <div class="detail-row">
+        <span class="detail-key">${k}</span>
+        <span class="detail-val ${detailClass(v)}">${v}</span>
+      </div>`).join('');
+
+    const typeTag = r.type === '代工/組裝'
+      ? `<span class="badge badge-type">代工</span>` : '';
+
+    return `
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="symbol">${r.symbol}</div>
+          <div class="name">${r.name}</div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-market">${r.market}</span>
+          <span class="badge badge-sector">${r.sector}</span>
+          ${typeTag}
+        </div>
+      </div>
+      <div class="score-bar-wrap">
+        <div class="score-label">
+          <span>基本面評分</span>
+          <span class="score-pct ${cls}">${r.score}/${r.max_score} (${r.score_pct}%)</span>
+        </div>
+        <div class="bar-bg">
+          <div class="bar-fill ${cls}" style="width:${r.score_pct}%"></div>
+        </div>
+      </div>
+      <div class="details">${detailRows}</div>
+    </div>`;
+  }).join('');
+}
+
+loadData();
+</script>
+</body>
+</html>
