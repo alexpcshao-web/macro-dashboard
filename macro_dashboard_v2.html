@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macro Monitor v2 — 亮色版</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F8FAFC;
+  --surface:  #FFFFFF;
+  --surface2: #F1F5F9;
+  --border:   #E2E8F0;
+  --border2:  #CBD5E1;
+  --text:     #1E293B;
+  --text2:    #64748B;
+  --text3:    #94A3B8;
+  --green:    #16A34A;
+  --green-bg: #DCFCE7;
+  --red:      #DC2626;
+  --red-bg:   #FEE2E2;
+  --orange:   #D97706;
+  --orange-bg:#FEF3C7;
+  --blue:     #2563EB;
+  --blue-bg:  #DBEAFE;
+  --shadow:   0 1px 3px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow2:  0 4px 12px rgba(0,0,0,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Layout ─────────────────────────────────────── */
+.wrap   { max-width: 1440px; margin: 0 auto; padding: 16px 20px 60px; }
+.sec    { margin-bottom: 40px; }
+.sec-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.sec-hd h2 { font-size: 18px; font-weight: 700; color: var(--text); }
+.sec-line { flex: 1; height: 1px; background: var(--border); }
+
+/* ── Navigation ─────────────────────────────────── */
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 0 16px; border-bottom: 2px solid var(--border); margin-bottom: 28px;
+  flex-wrap: wrap; gap: 10px;
+}
+.brand h1 { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+.brand h1 em { color: var(--blue); font-style: normal; }
+.brand p  { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.nav-r    { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ts       { font-size: 12px; color: var(--text2); }
+.ts span  { color: var(--blue); font-weight: 600; }
+.btn {
+  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+  padding: 7px 16px; border-radius: 6px; cursor: pointer;
+  border: 1.5px solid var(--border2); background: var(--surface); color: var(--text);
+  transition: all .15s;
+}
+.btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-bg); }
+.btn.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+.btn.primary:hover { background: #1d4ed8; }
+.btn.loading { opacity: .5; pointer-events: none; }
+.auto-chip {
+  font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+  background: var(--surface2); color: var(--text2); border: 1.5px solid var(--border2);
+}
+.auto-chip.on { background: var(--green-bg); color: var(--green); border-color: var(--green); }
+
+/* ── Cards ──────────────────────────────────────── */
+.card {
+  background: var(--surface); border-radius: 10px;
+  border: 1px solid var(--border); box-shadow: var(--shadow); padding: 18px;
+}
+.card-sm { padding: 14px; }
+
+/* ── Signal Badges ──────────────────────────────── */
+.sig {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+}
+.sig-bull { background: var(--green-bg); color: var(--green); }
+.sig-bear { background: var(--red-bg);   color: var(--red);   }
+.sig-neu  { background: var(--orange-bg);color: var(--orange);}
+.sig-blue { background: var(--blue-bg);  color: var(--blue);  }
+
+/* ── Temperature Gauge ──────────────────────────── */
+.gauge-wrap {
+  background: var(--surface); border-radius: 12px; border: 1px solid var(--border);
+  box-shadow: var(--shadow2); padding: 24px 28px;
+}
+.gauge-top { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.gauge-bar-area { flex: 1; min-width: 240px; }
+.gauge-labels { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.gauge-labels span { font-size: 11px; color: var(--text3); }
+.gauge-bar-bg {
+  height: 32px; border-radius: 16px; background: var(--surface2);
+  border: 1px solid var(--border); overflow: hidden; position: relative;
+}
+.gauge-bar-fill {
+  height: 100%; border-radius: 16px; width: 0%;
+  transition: width 1s cubic-bezier(.4,0,.2,1), background-color .5s;
+  background: linear-gradient(90deg, #DC2626 0%, #D97706 40%, #16A34A 80%);
+}
+.gauge-bar-marker {
+  position: absolute; top: 0; height: 100%; width: 3px;
+  background: rgba(0,0,0,0.25); border-radius: 2px;
+  transform: translateX(-50%); transition: left 1s cubic-bezier(.4,0,.2,1);
+}
+.gauge-score-wrap { text-align: center; min-width: 100px; }
+.gauge-score { font-size: 56px; font-weight: 800; line-height: 1; color: var(--text); }
+.gauge-score-label { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.gauge-count { font-size: 13px; color: var(--text2); margin-top: 10px; }
+.gauge-count strong { color: var(--green); }
+.gauge-count em { color: var(--red); font-style: normal; }
+.gauge-action {
+  margin-top: 14px; padding: 12px 18px; border-radius: 8px;
+  font-size: 18px; font-weight: 700; text-align: center;
+  background: var(--surface2); color: var(--text);
+  border: 1px solid var(--border);
+}
+
+/* ── Leading Indicators ─────────────────────────── */
+.lead-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 14px; }
+.lead-card { position: relative; }
+.lead-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+.lead-val  { font-size: 28px; font-weight: 800; color: var(--text); line-height: 1; margin-bottom: 10px; }
+.lead-val span { font-size: 14px; font-weight: 500; color: var(--text2); }
+.lead-desc { font-size: 13px; color: var(--text2); margin-top: 10px; line-height: 1.5;
+             border-top: 1px solid var(--border); padding-top: 10px; }
+.lead-meta { font-size: 11px; color: var(--text3); margin-top: 6px; }
+.lei-alert {
+  animation: blink-bg 1.5s ease-in-out infinite;
+  border-color: var(--red) !important;
+}
+@keyframes blink-bg {
+  0%,100% { background: var(--surface); }
+  50% { background: #FFF1F1; }
+}
+.lei-alert-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 700; color: var(--red);
+  background: var(--red-bg); padding: 2px 8px; border-radius: 12px; margin-top: 6px;
+}
+@keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0;} }
+.pulse-dot { width:6px;height:6px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse-dot 1s infinite; }
+
+/* ── Liquidity Section ──────────────────────────── */
+.liq-layout { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 14px; }
+.liq-main { grid-column: 1; }
+.liq-main .card { height: 100%; }
+.liq-nl-label { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+.liq-nl-val   { font-size: 40px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.liq-nl-dir   { font-size: 28px; font-weight: 800; }
+.liq-nl-sub   { font-size: 12px; color: var(--text2); margin-top: 8px; line-height: 1.6; }
+.liq-nl-formula { font-size: 11px; color: var(--text3); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.liq-mini-label { font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+.liq-mini-val   { font-size: 26px; font-weight: 800; color: var(--text); line-height: 1; }
+.liq-mini-dir   { font-size: 22px; font-weight: 800; display: inline; margin-left: 4px; }
+.liq-mini-chg   { font-size: 12px; color: var(--text2); margin-top: 4px; }
+.liq-mini-desc  { font-size: 12px; color: var(--text2); margin-top: 8px; line-height: 1.5;
+                  border-top: 1px solid var(--border); padding-top: 8px; }
+
+/* ── Technical Placeholder ──────────────────────── */
+.tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 14px; }
+.tech-dash { font-size: 36px; font-weight: 700; color: var(--border2); }
+.tech-note { font-size: 12px; color: var(--text3); margin-top: 6px; font-style: italic; }
+
+/* ── Matrix Table ───────────────────────────────── */
+.mx-wrap { background: var(--surface); border-radius: 10px; border: 1px solid var(--border);
+           box-shadow: var(--shadow); overflow-x: auto; }
+.mx-tbl  { width: 100%; border-collapse: collapse; min-width: 700px; font-size: 13px; }
+.mx-tbl th {
+  font-size: 12px; font-weight: 600; color: var(--text2); text-transform: uppercase;
+  letter-spacing: .5px; padding: 12px 14px; text-align: left;
+  border-bottom: 2px solid var(--border); background: var(--surface2);
+}
+.mx-tbl td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.mx-tbl tr:last-child td { border-bottom: none; }
+.mx-tbl tr:hover td { background: #F8FAFC; }
+.mx-scen { font-weight: 600; font-size: 13px; color: var(--text); }
+.mx-cond { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.mc { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 600;
+      padding: 3px 9px; border-radius: 12px; }
+.mc-bull { background: var(--green-bg); color: var(--green); }
+.mc-bear { background: var(--red-bg);   color: var(--red);   }
+.mc-neu  { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+
+/* ── Calendar Table ─────────────────────────────── */
+.cal-wrap { background: var(--surface); border-radius: 10px; border: 1px solid var(--border);
+            box-shadow: var(--shadow); overflow-x: auto; }
+.cal-tbl  { width: 100%; border-collapse: collapse; min-width: 640px; font-size: 13px; }
+.cal-tbl th {
+  font-size: 12px; font-weight: 600; color: var(--text2); text-transform: uppercase;
+  letter-spacing: .5px; padding: 12px 14px; text-align: left;
+  border-bottom: 2px solid var(--border); background: var(--surface2);
+}
+.cal-tbl td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.cal-tbl tr:last-child td { border-bottom: none; }
+.cal-tbl tr.ev-high td { background: #FFF5F5; }
+.cal-tbl tr.ev-high:hover td { background: #FEE2E2; }
+.cal-tbl tr:not(.ev-high):hover td { background: #F8FAFC; }
+.days-chip { font-size: 18px; font-weight: 800; min-width: 48px; display: inline-block; text-align: center; }
+.ev-name   { font-weight: 600; color: var(--text); }
+.ev-freq   { font-size: 12px; color: var(--text2); }
+.ev-note   { font-size: 12px; color: var(--text2); }
+.imp-badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 12px; }
+.imp-high  { background: var(--red-bg);    color: var(--red);    }
+.imp-med   { background: var(--orange-bg); color: var(--orange); }
+.imp-low   { background: var(--surface2);  color: var(--text2);  }
+
+/* ── Spinner / Loading ──────────────────────────── */
+.spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--blue);
+           border-radius: 50%; animation: spin .7s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { color: var(--text3); font-style: italic; }
+
+/* ── Responsive ─────────────────────────────────── */
+@media (max-width: 900px) {
+  .liq-layout { grid-template-columns: 1fr 1fr; }
+  .liq-main   { grid-column: span 2; }
+}
+@media (max-width: 600px) {
+  .liq-layout { grid-template-columns: 1fr; }
+  .liq-main   { grid-column: 1; }
+  .lead-grid, .tech-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <div class="brand">
+    <h1>MACRO <em>&</em> LIQUIDITY <em>MONITOR</em> <span style="font-size:14px;font-weight:500;color:var(--text2)">v2</span></h1>
+    <p>游庭皓景氣投資法框架 · FRED Real-Time · 亮色版</p>
+  </div>
+  <div class="nav-r">
+    <div class="auto-chip" id="auto-chip">AUTO OFF</div>
+    <div class="ts">更新：<span id="ts">—</span></div>
+    <button class="btn" id="auto-btn" onclick="toggleAuto()">AUTO ON</button>
+    <button class="btn primary" id="ref-btn" onclick="loadAll()">⟳ 重新整理</button>
+  </div>
+</nav>
+
+<!-- ── 市場綜合溫度計 ─────────────────────────────────────── -->
+<div class="sec">
+  <div class="sec-hd">
+    <h2>🌡️ 市場綜合溫度計</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="gauge-wrap">
+    <div class="gauge-top">
+      <div class="gauge-bar-area">
+        <div class="gauge-labels">
+          <span>❌ 清倉</span>
+          <span>⚠️ 減倉</span>
+          <span>⏸️ 等待</span>
+          <span>📈 正常</span>
+          <span>✅ 滿倉</span>
+        </div>
+        <div class="gauge-bar-bg">
+          <div class="gauge-bar-fill" id="gauge-fill"></div>
+          <div class="gauge-bar-marker" id="gauge-marker" style="left:50%"></div>
+        </div>
+        <div class="gauge-count" id="gauge-count">
+          <span class="spinner" style="width:14px;height:14px;border-width:2px;vertical-align:middle"></span>
+          &nbsp;計算中...
+        </div>
+      </div>
+      <div class="gauge-score-wrap">
+        <div class="gauge-score" id="gauge-score">—</div>
+        <div class="gauge-score-label">綜合分數（0-100）</div>
+      </div>
+    </div>
+    <div class="gauge-action" id="gauge-action">⏳ 載入指標中...</div>
+  </div>
+</div>
+
+<!-- ── 領先指標 ────────────────────────────────────────────── -->
+<div class="sec">
+  <div class="sec-hd">
+    <h2>📡 領先指標</h2>
+    <span style="font-size:13px;color:var(--text2);font-weight:500">3-6個月前瞻</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="lead-grid">
+
+    <!-- ISM PMI -->
+    <div class="card lead-card" id="card-ism">
+      <div class="lead-name">ISM 製造業 PMI</div>
+      <div class="lead-val" id="ism-val"><span class="loading-text">載入中...</span></div>
+      <div id="ism-sig"><span class="sig sig-neu">— 計算中</span></div>
+      <div class="lead-desc">製造業擴張/收縮，景氣3個月領先指標。>52擴張，<48收縮。</div>
+      <div class="lead-meta" id="ism-meta">FRED: NAPM</div>
+    </div>
+
+    <!-- Conference Board LEI -->
+    <div class="card lead-card" id="card-lei">
+      <div class="lead-name">Conference Board LEI</div>
+      <div class="lead-val" id="lei-val"><span class="loading-text">載入中...</span></div>
+      <div id="lei-sig"><span class="sig sig-neu">— 計算中</span></div>
+      <div id="lei-alert" style="margin-top:8px;display:none">
+        <div class="lei-alert-badge"><span class="pulse-dot"></span>&nbsp;⚠️ 連續3個月下降！</div>
+      </div>
+      <div class="lead-desc">複合領先指標，月變化轉負代表衰退風險上升。</div>
+      <div class="lead-meta" id="lei-meta">FRED: USALOLITONOSTSAM</div>
+    </div>
+
+    <!-- IC4WSA -->
+    <div class="card lead-card" id="card-ic4">
+      <div class="lead-name">初領失業金 4週均值</div>
+      <div class="lead-val" id="ic4-val"><span class="loading-text">載入中...</span></div>
+      <div id="ic4-sig"><span class="sig sig-neu">— 計算中</span></div>
+      <div class="lead-desc">就業最早期訊號。上升代表裁員加速，景氣轉弱。</div>
+      <div class="lead-meta" id="ic4-meta">FRED: IC4WSA</div>
+    </div>
+
+    <!-- TGA -->
+    <div class="card lead-card" id="card-tga">
+      <div class="lead-name">TGA 財政部帳戶</div>
+      <div class="lead-val" id="tga-val"><span class="loading-text">載入中...</span></div>
+      <div id="tga-sig"><span class="sig sig-neu">— 計算中</span></div>
+      <div class="lead-desc">TGA下降＝錢流回市場，對股市正面；上升則反之。</div>
+      <div class="lead-meta" id="tga-meta">FRED: WTREGEN</div>
+    </div>
+
+    <!-- IG Credit Spread -->
+    <div class="card lead-card" id="card-igcs">
+      <div class="lead-name">IG Credit Spread</div>
+      <div class="lead-val" id="igcs-val"><span class="loading-text">載入中...</span></div>
+      <div id="igcs-sig"><span class="sig sig-neu">— 計算中</span></div>
+      <div class="lead-desc">投資等級信用市場，比HY Spread更早反應壓力。</div>
+      <div class="lead-meta" id="igcs-meta">FRED: BAMLC0A0CM</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── 流動性指標 ──────────────────────────────────────────── -->
+<div class="sec">
+  <div class="sec-hd">
+    <h2>💧 流動性指標</h2>
+    <span style="font-size:13px;color:var(--text2);font-weight:500">1-3個月  ·  方向比數值更重要</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="liq-layout">
+
+    <!-- Net Liquidity 主卡 -->
+    <div class="liq-main">
+      <div class="card" style="height:100%">
+        <div class="liq-nl-label">NET LIQUIDITY（Fed BS − RRP）</div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin:6px 0 4px">
+          <div class="liq-nl-val" id="nl-val">—</div>
+          <div class="liq-nl-dir" id="nl-dir">—</div>
+        </div>
+        <div style="margin-top:6px"><span class="sig" id="nl-sig">計算中</span></div>
+        <div class="liq-nl-sub" id="nl-sub">4週變化：載入中</div>
+        <div class="liq-nl-formula" id="nl-formula">Fed BS: — &nbsp;|&nbsp; RRP: —</div>
+      </div>
+    </div>
+
+    <!-- HY Spread -->
+    <div class="card card-sm">
+      <div class="liq-mini-label">HY Credit Spread</div>
+      <div style="display:flex;align-items:baseline;gap:6px">
+        <div class="liq-mini-val" id="hy-val">—</div>
+        <div class="liq-mini-dir" id="hy-dir">—</div>
+      </div>
+      <div style="margin-top:6px"><span class="sig" id="hy-sig">計算中</span></div>
+      <div class="liq-mini-chg" id="hy-chg">20日變化：—</div>
+      <div class="liq-mini-desc">信用市場壓力指標。擴大→緊縮，縮小→寬鬆。</div>
+    </div>
+
+    <!-- RRP -->
+    <div class="card card-sm">
+      <div class="liq-mini-label">RRP 隔夜逆回購</div>
+      <div style="display:flex;align-items:baseline;gap:6px">
+        <div class="liq-mini-val" id="rrp-val">—</div>
+        <div class="liq-mini-dir" id="rrp-dir">—</div>
+      </div>
+      <div style="margin-top:6px"><span class="sig" id="rrp-sig">計算中</span></div>
+      <div class="liq-mini-chg" id="rrp-chg">4週變化：—</div>
+      <div class="liq-mini-desc">超額流動性水位。持續下降→系統流動性收緊。</div>
+    </div>
+
+    <!-- VIX -->
+    <div class="card card-sm">
+      <div class="liq-mini-label">VIX 恐慌指數</div>
+      <div style="display:flex;align-items:baseline;gap:6px">
+        <div class="liq-mini-val" id="vix-val">—</div>
+        <div class="liq-mini-dir" id="vix-dir">—</div>
+      </div>
+      <div style="margin-top:6px"><span class="sig" id="vix-sig">計算中</span></div>
+      <div class="liq-mini-chg" id="vix-chg">5日變化：—</div>
+      <div class="liq-mini-desc">期權隱含波動率。>25開始警戒，>35恐慌區間。</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── 技術面訊號 ──────────────────────────────────────────── -->
+<div class="sec">
+  <div class="sec-hd">
+    <h2>📊 技術面訊號</h2>
+    <span style="font-size:13px;color:var(--text2);font-weight:500">2-6週  ·  需執行 fetch_indicators.py 更新</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="tech-grid">
+    <div class="card card-sm">
+      <div class="lead-name">SPY vs 200MA</div>
+      <div class="tech-dash">—</div>
+      <div style="margin-top:8px"><span class="sig sig-neu">待更新</span></div>
+      <div class="tech-note">執行 fetch_indicators.py 後自動更新</div>
+    </div>
+    <div class="card card-sm">
+      <div class="lead-name">市場廣度（>50MA%）</div>
+      <div class="tech-dash">—</div>
+      <div style="margin-top:8px"><span class="sig sig-neu">待更新</span></div>
+      <div class="tech-note">S&P500成分股中，超過50日均的比例</div>
+    </div>
+    <div class="card card-sm">
+      <div class="lead-name">IWM vs SPY 相對強度</div>
+      <div class="tech-dash">—</div>
+      <div style="margin-top:8px"><span class="sig sig-neu">待更新</span></div>
+      <div class="tech-note">小型股/大型股 20日相對強度</div>
+    </div>
+    <div class="card card-sm">
+      <div class="lead-name">小型股領先訊號</div>
+      <div class="tech-dash">—</div>
+      <div style="margin-top:8px"><span class="sig sig-neu">待更新</span></div>
+      <div class="tech-note">IWM突破 vs SPY 領先/落後訊號</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 情境決策矩陣 ────────────────────────────────────────── -->
+<div class="sec">
+  <div class="sec-hd">
+    <h2>🧭 情境決策矩陣</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="mx-wrap">
+    <table class="mx-tbl">
+      <thead>
+        <tr>
+          <th style="width:200px">情境</th>
+          <th>美股</th><th>美債</th><th>美元</th>
+          <th>台股</th><th>商品</th><th>黃金</th>
+        </tr>
+      </thead>
+      <tbody id="mx-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── 重要經濟日程 ────────────────────────────────────────── -->
+<div class="sec">
+  <div class="sec-hd">
+    <h2>📅 重要經濟日程</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="cal-wrap">
+    <table class="cal-tbl">
+      <thead>
+        <tr>
+          <th style="width:80px">倒數</th>
+          <th>指標</th>
+          <th style="width:110px">日期</th>
+          <th style="width:80px">影響</th>
+          <th>來源</th>
+          <th>觀察重點</th>
+        </tr>
+      </thead>
+      <tbody id="cal-body"></tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+'use strict';
+var D = {};
+var autoOn = false;
+var autoTimer = null;
+
+// ── FRED fetch (same API format as existing) ──────────────────
+function fredFetch(id, limit) {
+  limit = limit || 26;
+  return fetch('/.netlify/functions/fred?series_id=' + id + '&limit=' + limit)
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(j) {
+      if (!j) return null;
+      var obs = (j.observations || []).filter(function(o) {
+        return o.value !== '.' && o.value !== '' && o.value != null;
+      });
+      return obs.length ? obs : null;
+    })
+    .catch(function() { return null; });
+}
+
+// ── Data definitions ──────────────────────────────────────────
+var MATRIX = [
+  {s:'就業強勁 NFP好',       c:'失業率低、薪資增長',        stock:'neu', bond:'bear',usd:'bull',tw:'neu', com:'neu', gold:'bear'},
+  {s:'通膨過熱 CPI↑',       c:'PCE偏高、升息壓力',         stock:'bear',bond:'bear',usd:'bull',tw:'bear',com:'bull',gold:'neu'},
+  {s:'通膨降溫 PCE↓',       c:'降息預期升、寬鬆啟動',      stock:'bull',bond:'bull',usd:'bear',tw:'bull',com:'neu', gold:'bull'},
+  {s:'景氣衰退 PMI<48',     c:'LEI連3負、殖利率倒掛',      stock:'bear',bond:'bull',usd:'neu', tw:'bear',com:'bear',gold:'bull'},
+  {s:'景氣擴張 PMI>52',     c:'就業好、通膨溫和',          stock:'bull',bond:'neu', usd:'neu', tw:'bull',com:'bull',gold:'neu'},
+  {s:'Fed降息週期開始',      c:'FFR下調、流動性擴張',       stock:'bull',bond:'bull',usd:'bear',tw:'bull',com:'bull',gold:'bull'},
+  {s:'流動性收緊 NL↓',      c:'Fed縮表、TGA升、RRP↓',     stock:'bear',bond:'neu', usd:'bull',tw:'bear',com:'bear',gold:'neu'},
+  {s:'信用壓力 Spread↑',    c:'IG或HY Spread快速擴大',    stock:'bear',bond:'bear',usd:'bull',tw:'bear',com:'bear',gold:'bull'}
+];
+
+var EVENTS = [
+  {name:'ISM製造業PMI',      date:'2026-06-02',freq:'每月第一交易日',impact:'high',src:'ISM',  note:'>52擴張，景氣領先指標'},
+  {name:'初領失業金週報',    date:'2026-05-15',freq:'每週四',         impact:'med', src:'DOL',  note:'提前預示就業轉折'},
+  {name:'非農就業NFP',       date:'2026-06-05',freq:'每月第一週五',   impact:'high',src:'BLS',  note:'最重要就業指標'},
+  {name:'ISM服務業PMI',      date:'2026-06-04',freq:'每月第三交易日', impact:'med', src:'ISM',  note:'服務業佔GDP約80%'},
+  {name:'CPI 通膨',          date:'2026-06-11',freq:'每月中旬',       impact:'high',src:'BLS',  note:'高=升息壓力；低=降息空間'},
+  {name:'PPI 生產者物價',    date:'2026-06-12',freq:'每月中旬',       impact:'med', src:'BLS',  note:'CPI領先指標'},
+  {name:'零售銷售',          date:'2026-06-16',freq:'每月中旬',       impact:'med', src:'Commerce',note:'消費強度指標'},
+  {name:'GDP 初值',          date:'2026-06-25',freq:'每季末',         impact:'high',src:'BEA',  note:'季度成長率'},
+  {name:'PCE 物價指數',      date:'2026-05-30',freq:'每月月底',       impact:'high',src:'BEA',  note:'聯準會核心通膨指標'},
+  {name:'FOMC 利率決策',     date:'2026-06-18',freq:'每年8次',        impact:'high',src:'Fed',  note:'點陣圖預測利率路徑'},
+  {name:'Conference Board LEI',date:'2026-05-22',freq:'每月',         impact:'high',src:'CB',   note:'轉負代表衰退風險升'},
+  {name:'消費者信心指數',    date:'2026-05-27',freq:'每月月底',       impact:'med', src:'CB',   note:'消費前景領先指標'}
+];
+
+// ── Signal helpers ────────────────────────────────────────────
+function sigClass(sig) {
+  return sig === 'bull' ? 'sig-bull' : sig === 'bear' ? 'sig-bear' : 'sig-neu';
+}
+function sigLabel(sig) {
+  return sig === 'bull' ? '✅ 看多' : sig === 'bear' ? '🔴 看空' : '⏸️ 中性';
+}
+function dirArrow(isUp, isBullish) {
+  if (isUp === null || isUp === undefined) return {arrow:'—', cls:'', color: 'var(--text3)'};
+  var arrow = isUp ? '↑' : '↓';
+  var bullDir = isBullish ? isUp : !isUp;
+  var color = bullDir ? 'var(--green)' : 'var(--red)';
+  return {arrow: arrow, cls: bullDir ? 'bull' : 'bear', color: color};
+}
+
+// ── Compute all signals (returns array of {name,sig}) ─────────
+function computeAllSignals() {
+  var sigs = [];
+
+  // Leading 1: ISM PMI
+  if (D['NAPM'] && D['NAPM'].value != null) {
+    var v = D['NAPM'].value;
+    sigs.push({name:'ISM PMI', sig: v > 52 ? 'bull' : v >= 48 ? 'neu' : 'bear'});
+  }
+  // Leading 2: LEI
+  if (D['LEI'] && D['LEI'].value != null && D['LEI'].prev != null) {
+    var ch = D['LEI'].value - D['LEI'].prev;
+    sigs.push({name:'LEI', sig: ch > 0 ? 'bull' : 'bear'});
+  }
+  // Leading 3: IC4WSA
+  if (D['IC4WSA'] && D['IC4WSA'].value != null) {
+    var v4 = D['IC4WSA'].value / 1000;
+    sigs.push({name:'IC4WSA', sig: v4 < 220 ? 'bull' : v4 < 280 ? 'neu' : 'bear'});
+  }
+  // Leading 4: TGA direction
+  if (D['WTREGEN'] && D['WTREGEN'].value != null && D['WTREGEN'].prev != null) {
+    sigs.push({name:'TGA', sig: D['WTREGEN'].value < D['WTREGEN'].prev ? 'bull' : 'bear'});
+  }
+  // Leading 5: IG Spread
+  if (D['BAMLC0A0CM'] && D['BAMLC0A0CM'].value != null) {
+    var igs = D['BAMLC0A0CM'].value;
+    sigs.push({name:'IG Spread', sig: igs < 1.2 ? 'bull' : igs < 2 ? 'neu' : 'bear'});
+  }
+
+  // Liquidity 6: Net Liquidity direction (4-week)
+  if (D['WALCL'] && D['RRPONTSYD']) {
+    var nl_now = D['WALCL'].value / 1e6 - D['RRPONTSYD'].value / 1000;
+    var nl_ago = (D['WALCL'].val4ago != null && D['RRPONTSYD'].val4ago != null)
+      ? D['WALCL'].val4ago / 1e6 - D['RRPONTSYD'].val4ago / 1000 : null;
+    if (nl_ago != null) {
+      sigs.push({name:'Net Liq', sig: nl_now > nl_ago ? 'bull' : 'bear'});
+    }
+  }
+  // Liquidity 7: HY Spread level
+  if (D['BAMLH0A0HYM2'] && D['BAMLH0A0HYM2'].value != null) {
+    var hy = D['BAMLH0A0HYM2'].value;
+    sigs.push({name:'HY Spread', sig: hy < 3.5 ? 'bull' : hy < 5.5 ? 'neu' : 'bear'});
+  }
+  // Liquidity 8: RRP level
+  if (D['RRPONTSYD'] && D['RRPONTSYD'].value != null) {
+    var rrpv = D['RRPONTSYD'].value;
+    sigs.push({name:'RRP', sig: rrpv > 500 ? 'bull' : rrpv > 100 ? 'neu' : 'bear'});
+  }
+  // Liquidity 9: VIX
+  if (D['VIXCLS'] && D['VIXCLS'].value != null) {
+    var vx = D['VIXCLS'].value;
+    sigs.push({name:'VIX', sig: vx < 15 ? 'bull' : vx < 25 ? 'neu' : 'bear'});
+  }
+
+  return sigs;
+}
+
+// ── Temperature gauge ─────────────────────────────────────────
+function renderGauge() {
+  var sigs = computeAllSignals();
+  if (!sigs.length) return;
+
+  var bulls = sigs.filter(function(s){return s.sig==='bull';}).length;
+  var bears = sigs.filter(function(s){return s.sig==='bear';}).length;
+  var total = sigs.length;
+  var score = Math.round((bulls / total) * 100);
+
+  document.getElementById('gauge-score').textContent = score;
+  document.getElementById('gauge-fill').style.width = score + '%';
+  document.getElementById('gauge-marker').style.left = score + '%';
+
+  // Score color
+  var sc = score >= 80 ? '#16A34A' : score >= 60 ? '#65A30D' :
+           score >= 40 ? '#D97706' : score >= 20 ? '#EA580C' : '#DC2626';
+  document.getElementById('gauge-score').style.color = sc;
+
+  // Count text
+  document.getElementById('gauge-count').innerHTML =
+    '<strong>' + bulls + ' 看多</strong>　/　<em>' + bears + ' 看空</em>　/　' + (total-bulls-bears) + ' 中性　（共' + total + '個訊號）';
+
+  // Action text
+  var action, acBg, acColor;
+  if (score >= 80) {
+    action = '✅ 滿倉做多，積極布局'; acBg='#DCFCE7'; acColor='#15803D';
+  } else if (score >= 60) {
+    action = '📈 正常倉位，選強勢股'; acBg='#F0FDF4'; acColor='#16A34A';
+  } else if (score >= 40) {
+    action = '⏸️ 減倉等待，不追高';   acBg='#FFFBEB'; acColor='#D97706';
+  } else if (score >= 20) {
+    action = '⚠️ 大幅減倉，持現金';   acBg='#FFF7ED'; acColor='#EA580C';
+  } else {
+    action = '❌ 清倉，禁止做多';     acBg='#FEF2F2'; acColor='#DC2626';
+  }
+  var el = document.getElementById('gauge-action');
+  el.textContent = action;
+  el.style.background = acBg;
+  el.style.color = acColor;
+  el.style.borderColor = acColor + '40';
+}
+
+// ── Render leading indicators ─────────────────────────────────
+function renderLeading() {
+  // ISM PMI
+  if (D['NAPM']) {
+    var v = D['NAPM'].value;
+    var sig = v > 52 ? 'bull' : v >= 48 ? 'neu' : 'bear';
+    document.getElementById('ism-val').innerHTML = v.toFixed(1) + '<span>&nbsp;</span>';
+    document.getElementById('ism-sig').innerHTML = '<span class="sig ' + sigClass(sig) + '">' + sigLabel(sig) + '</span>';
+    document.getElementById('ism-meta').textContent = 'FRED: NAPM · ' + D['NAPM'].date;
+  }
+
+  // LEI
+  if (D['LEI']) {
+    var lv = D['LEI'].value;
+    var lp = D['LEI'].prev;
+    var lch = lp != null ? (lv - lp) : null;
+    var lsig = lch != null ? (lch > 0 ? 'bull' : 'bear') : 'neu';
+    var lchStr = lch != null ? (lch >= 0 ? '+' : '') + lch.toFixed(2) + '（月變化）' : '';
+    document.getElementById('lei-val').innerHTML = lv.toFixed(2) + '<span style="font-size:13px;color:var(--text2)">&nbsp;' + lchStr + '</span>';
+    document.getElementById('lei-sig').innerHTML = '<span class="sig ' + sigClass(lsig) + '">' + sigLabel(lsig) + '</span>';
+
+    // Consecutive 3-month check
+    var h = D['LEI'].history;
+    var lei3neg = false;
+    if (h && h.length >= 4) {
+      lei3neg = (h[h.length-1].v < h[h.length-2].v) &&
+                (h[h.length-2].v < h[h.length-3].v) &&
+                (h[h.length-3].v < h[h.length-4].v);
+    }
+    var alertEl = document.getElementById('lei-alert');
+    alertEl.style.display = lei3neg ? 'block' : 'none';
+    document.getElementById('card-lei').classList.toggle('lei-alert', lei3neg);
+    document.getElementById('lei-meta').textContent = 'FRED: USALOLITONOSTSAM · ' + D['LEI'].date;
+  }
+
+  // IC4WSA
+  if (D['IC4WSA']) {
+    var iv = D['IC4WSA'].value / 1000;
+    var isig = iv < 220 ? 'bull' : iv < 280 ? 'neu' : 'bear';
+    document.getElementById('ic4-val').innerHTML = iv.toFixed(0) + '<span>&nbsp;K</span>';
+    document.getElementById('ic4-sig').innerHTML = '<span class="sig ' + sigClass(isig) + '">' + sigLabel(isig) + '</span>';
+    document.getElementById('ic4-meta').textContent = 'FRED: IC4WSA · ' + D['IC4WSA'].date;
+  }
+
+  // TGA
+  if (D['WTREGEN']) {
+    var tv = D['WTREGEN'].value / 1000;
+    var tp = D['WTREGEN'].prev != null ? D['WTREGEN'].prev / 1000 : null;
+    var tsig = (tp != null) ? (tv < tp ? 'bull' : 'bear') : 'neu';
+    var tdir = tp != null ? (tv < tp ? ' ↓' : ' ↑') : '';
+    var tdirColor = (tv < tp) ? 'color:var(--green)' : 'color:var(--red)';
+    document.getElementById('tga-val').innerHTML = '$' + tv.toFixed(1) + 'B<span style="font-size:16px;' + tdirColor + '">' + tdir + '</span>';
+    document.getElementById('tga-sig').innerHTML = '<span class="sig ' + sigClass(tsig) + '">' + sigLabel(tsig) + '</span>';
+    document.getElementById('tga-meta').textContent = 'FRED: WTREGEN · ' + D['WTREGEN'].date;
+  }
+
+  // IG Credit Spread
+  if (D['BAMLC0A0CM']) {
+    var gv = D['BAMLC0A0CM'].value;
+    var gsig = gv < 1.2 ? 'bull' : gv < 2 ? 'neu' : 'bear';
+    document.getElementById('igcs-val').innerHTML = gv.toFixed(2) + '<span>&nbsp;%</span>';
+    document.getElementById('igcs-sig').innerHTML = '<span class="sig ' + sigClass(gsig) + '">' + sigLabel(gsig) + '</span>';
+    document.getElementById('igcs-meta').textContent = 'FRED: BAMLC0A0CM · ' + D['BAMLC0A0CM'].date;
+  }
+}
+
+// ── Render liquidity ──────────────────────────────────────────
+function renderLiquidity() {
+  // Net Liquidity
+  if (D['WALCL'] && D['RRPONTSYD']) {
+    var walcl = D['WALCL'].value;
+    var rrp   = D['RRPONTSYD'].value;
+    var fedT  = walcl / 1e6;
+    var rrpT  = rrp / 1000;
+    var nl    = fedT - rrpT;
+
+    var nl4a_walcl = D['WALCL'].val4ago;
+    var nl4a_rrp   = D['RRPONTSYD'].val4ago;
+    var nl4a = (nl4a_walcl != null && nl4a_rrp != null) ? nl4a_walcl/1e6 - nl4a_rrp/1000 : null;
+    var nlIsUp = nl4a != null ? nl > nl4a : null;
+    var nlDir  = dirArrow(nlIsUp, true); // up is bullish
+
+    var nlSig  = nl < 5.2 ? 'bear' : nl < 5.8 ? 'neu' : 'bull';
+    document.getElementById('nl-val').textContent = '$' + nl.toFixed(2) + 'T';
+    document.getElementById('nl-dir').textContent = nlDir.arrow;
+    document.getElementById('nl-dir').style.color = nlDir.color;
+    document.getElementById('nl-sig').textContent = sigLabel(nlSig);
+    document.getElementById('nl-sig').className   = 'sig ' + sigClass(nlSig);
+
+    var nlChgStr = nl4a != null ? '4週變化：' + (nl>nl4a?'+':'') + (nl-nl4a).toFixed(3) + 'T' : '4週變化：—';
+    document.getElementById('nl-sub').textContent = nlChgStr;
+    document.getElementById('nl-formula').textContent =
+      'Fed BS: $' + fedT.toFixed(2) + 'T　|　RRP: $' + rrpT.toFixed(3) + 'T';
+  }
+
+  // HY Spread
+  if (D['BAMLH0A0HYM2']) {
+    var hy   = D['BAMLH0A0HYM2'].value;
+    var hysig= hy < 3.5 ? 'bull' : hy < 5.5 ? 'neu' : 'bear';
+    var hy20 = D['BAMLH0A0HYM2'].val20ago;
+    var hyIsUp = hy20 != null ? hy > hy20 : null;
+    var hyDir  = dirArrow(hyIsUp, false); // up is bearish for spread
+    document.getElementById('hy-val').textContent  = hy.toFixed(2) + '%';
+    document.getElementById('hy-dir').textContent  = hyDir.arrow;
+    document.getElementById('hy-dir').style.color  = hyDir.color;
+    document.getElementById('hy-sig').textContent  = sigLabel(hysig);
+    document.getElementById('hy-sig').className    = 'sig ' + sigClass(hysig);
+    document.getElementById('hy-chg').textContent  = hy20 != null ?
+      '20日變化：' + (hy>hy20?'+':'') + (hy-hy20).toFixed(2) + '%' : '20日變化：—';
+  }
+
+  // RRP
+  if (D['RRPONTSYD']) {
+    var rrpv    = D['RRPONTSYD'].value;
+    var rrpsig  = rrpv > 500 ? 'bull' : rrpv > 100 ? 'neu' : 'bear';
+    var rrp4ago = D['RRPONTSYD'].val4ago;
+    var rrpIsUp = rrp4ago != null ? rrpv > rrp4ago : null;
+    var rrpDir  = dirArrow(rrpIsUp, true); // up=more buffer=bullish
+    document.getElementById('rrp-val').textContent = '$' + rrpv.toFixed(0) + 'B';
+    document.getElementById('rrp-dir').textContent = rrpDir.arrow;
+    document.getElementById('rrp-dir').style.color = rrpDir.color;
+    document.getElementById('rrp-sig').textContent = sigLabel(rrpsig);
+    document.getElementById('rrp-sig').className   = 'sig ' + sigClass(rrpsig);
+    document.getElementById('rrp-chg').textContent = rrp4ago != null ?
+      '4週變化：' + (rrpv>rrp4ago?'+':'') + (rrpv-rrp4ago).toFixed(1) + 'B' : '4週變化：—';
+  }
+
+  // VIX
+  if (D['VIXCLS']) {
+    var vx     = D['VIXCLS'].value;
+    var vxsig  = vx < 15 ? 'bull' : vx < 25 ? 'neu' : 'bear';
+    var vx5ago = D['VIXCLS'].val5ago;
+    var vxIsUp = vx5ago != null ? vx > vx5ago : null;
+    var vxDir  = dirArrow(vxIsUp, false); // up=more fear=bearish
+    document.getElementById('vix-val').textContent = vx.toFixed(1);
+    document.getElementById('vix-dir').textContent = vxDir.arrow;
+    document.getElementById('vix-dir').style.color = vxDir.color;
+    document.getElementById('vix-sig').textContent = sigLabel(vxsig);
+    document.getElementById('vix-sig').className   = 'sig ' + sigClass(vxsig);
+    document.getElementById('vix-chg').textContent = vx5ago != null ?
+      '5日變化：' + (vx>vx5ago?'+':'') + (vx-vx5ago).toFixed(1) : '5日變化：—';
+  }
+}
+
+// ── Render matrix ─────────────────────────────────────────────
+function renderMatrix() {
+  function mc(dir, lbl) {
+    var c = dir==='bull' ? 'mc-bull' : dir==='bear' ? 'mc-bear' : 'mc-neu';
+    var a = dir==='bull' ? '▲' : dir==='bear' ? '▼' : '—';
+    return '<span class="mc ' + c + '">' + a + ' ' + lbl + '</span>';
+  }
+  var tb = document.getElementById('mx-body');
+  tb.innerHTML = '';
+  MATRIX.forEach(function(r) {
+    tb.innerHTML += '<tr><td><div class="mx-scen">' + r.s + '</div><div class="mx-cond">' + r.c + '</div></td><td>' +
+      mc(r.stock,'美股') + '</td><td>' + mc(r.bond,'美債') + '</td><td>' + mc(r.usd,'美元') + '</td><td>' +
+      mc(r.tw,'台股') + '</td><td>' + mc(r.com,'商品') + '</td><td>' + mc(r.gold,'黃金') + '</td></tr>';
+  });
+}
+
+// ── Render calendar ───────────────────────────────────────────
+function renderCalendar() {
+  var now    = new Date();
+  var sorted = EVENTS.slice().sort(function(a,b){ return new Date(a.date)-new Date(b.date); });
+  var tb     = document.getElementById('cal-body');
+  tb.innerHTML = '';
+  sorted.forEach(function(ev) {
+    var d    = new Date(ev.date);
+    var diff = Math.ceil((d - now) / 86400000);
+    var past = diff < 0;
+    var dc   = past ? 'var(--text3)' : diff<=3 ? 'var(--red)' : diff<=7 ? 'var(--orange)' : 'var(--blue)';
+    var dayTxt = past ? '已過' : diff===0 ? '今日' : diff+'天';
+    var ic   = ev.impact==='high' ? 'imp-high' : ev.impact==='med' ? 'imp-med' : 'imp-low';
+    var rowCls = ev.impact==='high' && !past ? ' class="ev-high"' : '';
+    tb.innerHTML += '<tr' + rowCls + '>' +
+      '<td><span class="days-chip" style="color:' + dc + '">' + dayTxt + '</span></td>' +
+      '<td><div class="ev-name">' + ev.name + '</div><div class="ev-freq">' + ev.freq + '</div></td>' +
+      '<td style="color:var(--text2)">' + ev.date + '</td>' +
+      '<td><span class="imp-badge ' + ic + '">' + ev.impact.toUpperCase() + '</span></td>' +
+      '<td style="color:var(--text2);font-size:12px">' + ev.src + '</td>' +
+      '<td><div class="ev-note">' + ev.note + '</div></td></tr>';
+  });
+}
+
+// ── Load all FRED data ────────────────────────────────────────
+function loadAll() {
+  var btn = document.getElementById('ref-btn');
+  btn.classList.add('loading'); btn.textContent = '⏳ 載入中...';
+
+  var fetches = [
+    {key:'NAPM',        id:'NAPM',           limit:4},
+    {key:'LEI',         id:'USALOLITONOSTSAM',limit:8},
+    {key:'IC4WSA',      id:'IC4WSA',          limit:6},
+    {key:'WTREGEN',     id:'WTREGEN',         limit:6},
+    {key:'BAMLC0A0CM',  id:'BAMLC0A0CM',      limit:30},
+    {key:'WALCL',       id:'WALCL',           limit:8},
+    {key:'RRPONTSYD',   id:'RRPONTSYD',       limit:8},
+    {key:'BAMLH0A0HYM2',id:'BAMLH0A0HYM2',   limit:30},
+    {key:'VIXCLS',      id:'VIXCLS',          limit:10},
+  ];
+
+  var promises = fetches.map(function(f) {
+    return fredFetch(f.id, f.limit).then(function(obs) {
+      if (!obs || !obs.length) return;
+      var entry = {
+        value:  parseFloat(obs[0].value),
+        date:   obs[0].date,
+        prev:   obs[1] ? parseFloat(obs[1].value) : null,
+        history: obs.slice().reverse().map(function(o){ return {date:o.date, v:parseFloat(o.value)}; })
+      };
+      // Extra lookback values
+      if (obs[4]) entry.val4ago  = parseFloat(obs[4].value);
+      if (obs[5]) entry.val5ago  = parseFloat(obs[5].value);
+      if (obs[20]) entry.val20ago = parseFloat(obs[20].value);
+      D[f.key] = entry;
+    });
+  });
+
+  Promise.all(promises).then(function() {
+    renderLeading();
+    renderLiquidity();
+    renderGauge();
+    document.getElementById('ts').textContent = new Date().toLocaleString('zh-TW');
+    btn.classList.remove('loading'); btn.textContent = '⟳ 重新整理';
+  });
+}
+
+// ── Auto refresh ──────────────────────────────────────────────
+function toggleAuto() {
+  autoOn = !autoOn;
+  var chip = document.getElementById('auto-chip');
+  var btn  = document.getElementById('auto-btn');
+  if (autoOn) {
+    chip.textContent = 'AUTO 30MIN'; chip.classList.add('on');
+    btn.textContent = 'AUTO OFF';
+    autoTimer = setInterval(loadAll, 30 * 60 * 1000);
+  } else {
+    chip.textContent = 'AUTO OFF'; chip.classList.remove('on');
+    btn.textContent = 'AUTO ON';
+    clearInterval(autoTimer);
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────
+window.addEventListener('load', function() {
+  renderCalendar();
+  renderMatrix();
+  loadAll();
+});
+</script>
+</body>
+</html>
