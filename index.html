@@ -7,15 +7,15 @@
 <title>Macro & Liquidity Monitor</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#06090d;--s1:#0b0f15;--s2:#0f1520;--border:#1a2535;--border2:#243344;--accent:#38bdf8;--accent2:#34d399;--text:#94a3b8;--text2:#64748b;--bright:#e2e8f0;--green:#34d399;--red:#f87171;--yellow:#fbbf24;--purple:#a78bfa;--pink:#f472b6;--grid:rgba(56,189,248,.03);}
+:root{--bg:#f8fafc;--s1:#ffffff;--s2:#f1f5f9;--border:#e2e8f0;--border2:#cbd5e1;--accent:#0284c7;--accent2:#059669;--text:#334155;--text2:#64748b;--bright:#1e293b;--green:#059669;--red:#dc2626;--yellow:#d97706;--purple:#7c3aed;--pink:#db2777;--grid:rgba(2,132,199,.035);--shadow:0 1px 3px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);--shadow-lg:0 4px 16px rgba(15,23,42,.08),0 2px 6px rgba(15,23,42,.05);}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--text);font-family:'IBM Plex Mono',monospace;min-height:100vh;}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Mono',monospace;min-height:100vh;font-size:13px;}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
 .wrap{position:relative;z-index:1;max-width:1500px;margin:0 auto;padding:20px 24px 60px;}
 nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0 18px;border-bottom:1px solid var(--border);margin-bottom:24px;flex-wrap:wrap;gap:10px;}
-.brand h1{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--bright);}
+.brand h1{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--bright);}
 .brand h1 em{color:var(--accent);font-style:normal;}
-.brand p{font-size:9px;letter-spacing:2px;color:var(--text2);margin-top:3px;text-transform:uppercase;}
+.brand p{font-size:10px;letter-spacing:2px;color:var(--text2);margin-top:4px;text-transform:uppercase;}
 .nav-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .ts{font-size:9px;color:var(--text2);}
 .ts span{color:var(--accent2);}
@@ -32,108 +32,128 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
 .b-sent{color:var(--purple);border-color:var(--purple);}
 .sec-line{flex:1;height:1px;background:var(--border);}
 .cycle-row{display:grid;grid-template-columns:240px 1fr;gap:14px;margin-bottom:18px;}
-.cycle-card{background:var(--s1);border:1px solid var(--border);padding:18px;display:flex;flex-direction:column;align-items:center;}
+.cycle-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;align-items:center;}
 .ring-wrap{position:relative;width:150px;height:150px;}
 .ring-wrap svg{transform:rotate(-90deg);}
 .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.ring-phase{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--bright);}
+.ring-phase{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--bright);}
 .ring-sub{font-size:9px;color:var(--text2);margin-top:2px;}
 .cycle-leg{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:12px;width:100%;}
 .cl-i{display:flex;align-items:center;gap:5px;font-size:8px;color:var(--text2);}
 .cl-d{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.cycle-sigs{background:var(--s1);border:1px solid var(--border);padding:18px;display:flex;flex-direction:column;gap:8px;}
-.cs-row{display:flex;align-items:center;gap:8px;padding:7px 9px;background:var(--s2);}
-.cs-icon{font-size:14px;width:20px;text-align:center;}
-.cs-name{font-size:9px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;flex:1;}
-.cs-val{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--bright);min-width:60px;text-align:right;}
+.cycle-sigs{background:var(--s1);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:8px;}
+.cs-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--s2);border-radius:8px;}
+.cs-icon{font-size:15px;width:20px;text-align:center;}
+.cs-name{font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;flex:1;}
+.cs-val{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--bright);min-width:64px;text-align:right;}
 .cs-sig{font-size:8px;padding:2px 6px;border:1px solid;letter-spacing:1px;min-width:80px;text-align:center;}
 .g-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;}
-.g-card{background:var(--s1);border:1px solid var(--border);padding:14px;transition:border-color .2s;}
-.g-card:hover{border-color:var(--border2);}
+.g-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:16px;transition:box-shadow .2s,transform .2s;}
+.g-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px);}
 .g-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
-.g-name{font-size:9px;letter-spacing:1px;color:var(--text2);text-transform:uppercase;}
-.g-dot{width:6px;height:6px;border-radius:50%;animation:blink 2.4s ease-in-out infinite;}
+.g-name{font-size:10px;letter-spacing:1px;color:var(--text2);text-transform:uppercase;font-weight:600;}
+.g-dot{width:7px;height:7px;border-radius:50%;animation:blink 2.4s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
-.g-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;color:var(--bright);line-height:1;}
-.g-unit{font-size:10px;color:var(--text2);}
-.g-chg{font-size:9px;margin:3px 0 6px;}
+.g-val{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:var(--bright);line-height:1;}
+.g-unit{font-size:11px;color:var(--text2);}
+.g-chg{font-size:10px;margin:4px 0 7px;font-weight:600;}
 .g-spark{width:100%;height:36px;margin-bottom:8px;}
 .g-bar-bg{height:2px;background:var(--border);border-radius:1px;overflow:hidden;margin-bottom:7px;}
 .g-bar-fill{height:100%;border-radius:1px;transition:width .9s cubic-bezier(.4,0,.2,1);}
-.g-sig{font-size:8px;letter-spacing:1px;padding:2px 6px;border:1px solid;display:inline-block;}
-.g-comment{font-size:9px;color:var(--text2);margin-top:7px;line-height:1.5;border-top:1px solid var(--border);padding-top:7px;}
-.g-meta{font-size:8px;color:var(--text2);margin-top:5px;}
-.sig-bull{color:var(--green);border-color:var(--green);}
-.sig-neu{color:var(--yellow);border-color:var(--yellow);}
-.sig-bear{color:var(--red);border-color:var(--red);}
+.g-sig{font-size:9px;letter-spacing:1px;padding:3px 7px;border:1px solid;display:inline-block;border-radius:5px;font-weight:600;}
+.g-comment{font-size:10px;color:var(--text);margin-top:8px;line-height:1.6;border-top:1px solid var(--border);padding-top:8px;}
+.g-meta{font-size:9px;color:var(--text2);margin-top:6px;}
+.sig-bull{color:var(--green);border-color:rgba(5,150,105,.35);background:rgba(5,150,105,.08);}
+.sig-neu{color:var(--yellow);border-color:rgba(217,119,6,.35);background:rgba(217,119,6,.08);}
+.sig-bear{color:var(--red);border-color:rgba(220,38,38,.35);background:rgba(220,38,38,.08);}
 .dot-bull{background:var(--green);}
 .dot-neu{background:var(--yellow);}
 .dot-bear{background:var(--red);}
-.cal-table-wrap{background:var(--s1);border:1px solid var(--border);overflow-x:auto;}
+.cal-table-wrap{background:var(--s1);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;overflow-x:auto;}
 .cal-tbl{width:100%;border-collapse:collapse;min-width:600px;}
 .cal-tbl th{font-size:8px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;padding:9px 14px;text-align:left;border-bottom:1px solid var(--border);background:var(--s2);}
-.cal-tbl td{padding:10px 14px;border-bottom:1px solid rgba(26,37,53,.5);font-size:10px;vertical-align:middle;}
+.cal-tbl td{padding:10px 14px;border-bottom:1px solid rgba(226,232,240,.7);font-size:10px;vertical-align:middle;}
 .cal-tbl tr:last-child td{border-bottom:none;}
 .cal-tbl tr:hover td{background:var(--s2);}
-.days-chip{display:inline-block;min-width:42px;text-align:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;}
+.days-chip{display:inline-block;min-width:42px;text-align:center;font-family:'Syne',sans-serif;font-size:17px;font-weight:700;}
 .imp-badge{font-size:7px;padding:1px 5px;border:1px solid;letter-spacing:1px;text-transform:uppercase;}
 .imp-high{color:var(--red);border-color:var(--red);}
 .imp-med{color:var(--yellow);border-color:var(--yellow);}
 .imp-low{color:var(--text2);border-color:var(--border2);}
-.mx-wrap{background:var(--s1);border:1px solid var(--border);overflow-x:auto;}
+.mx-wrap{background:var(--s1);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;overflow-x:auto;}
 .mx-tbl{width:100%;border-collapse:collapse;min-width:700px;}
 .mx-tbl th{font-size:8px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);background:var(--s2);}
-.mx-tbl td{padding:10px 12px;border-bottom:1px solid rgba(26,37,53,.5);font-size:10px;vertical-align:middle;}
+.mx-tbl td{padding:10px 12px;border-bottom:1px solid rgba(226,232,240,.7);font-size:10px;vertical-align:middle;}
 .mx-tbl tr:hover td{background:var(--s2);}
 .mx-tbl tr:last-child td{border-bottom:none;}
-.chip{display:inline-flex;align-items:center;gap:3px;font-size:8px;padding:2px 6px;border:1px solid;margin:1px;}
-.cup{color:var(--green);border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.05);}
-.cdn{color:var(--red);border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.05);}
-.cne{color:var(--yellow);border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.05);}
+.chip{display:inline-flex;align-items:center;gap:3px;font-size:9px;padding:3px 7px;border:1px solid;margin:1px;border-radius:5px;font-weight:600;}
+.cup{color:var(--green);border-color:rgba(5,150,105,.3);background:rgba(5,150,105,.08);}
+.cdn{color:var(--red);border-color:rgba(220,38,38,.3);background:rgba(220,38,38,.08);}
+.cne{color:var(--yellow);border-color:rgba(217,119,6,.3);background:rgba(217,119,6,.08);}
 .mx-scen{color:var(--bright);font-weight:600;font-size:10px;}
 .mx-cond{font-size:8px;color:var(--text2);margin-top:2px;}
 .nlb{display:grid;grid-template-columns:220px 1fr;gap:14px;margin-bottom:18px;}
-.nlb-main{background:var(--s1);border:1px solid var(--border);padding:18px;position:relative;overflow:hidden;}
-.nlb-main::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
-.nlb-lbl{font-size:8px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;}
-.nlb-v{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:var(--bright);line-height:1;}
+.nlb-main{background:var(--s1);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:20px;position:relative;overflow:hidden;}
+.nlb-main::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.nlb-lbl{font-size:9px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;font-weight:600;}
+.nlb-v{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--bright);line-height:1;}
 .nlb-v.tight{color:var(--red);}
 .nlb-v.neutral{color:var(--yellow);}
 .nlb-v.loose{color:var(--green);}
 .nlb-f{font-size:8px;color:var(--text2);margin-top:7px;padding-top:7px;border-top:1px solid var(--border);}
 .nlb-f span{color:var(--accent);}
 .nlb-sums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.nlb-s{background:var(--s1);border:1px solid var(--border);padding:12px;}
-.nlb-s-lbl{font-size:7px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:5px;}
-.nlb-s-val{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:2px;}
+.nlb-s{background:var(--s1);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:14px;}
+.nlb-s-lbl{font-size:8px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;font-weight:600;}
+.nlb-s-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:3px;}
 .nlb-s-desc{font-size:8px;color:var(--text2);line-height:1.5;}
-.chart-card{background:var(--s1);border:1px solid var(--border);padding:18px;position:relative;margin-bottom:16px;}
+.chart-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:18px;position:relative;margin-bottom:16px;}
 .chart-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
 .chart-hd h3{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--bright);}
 .chart-hd p{font-size:9px;color:var(--text2);margin-top:2px;}
 .chart-leg{display:flex;gap:12px;flex-wrap:wrap;}
 .leg-i{display:flex;align-items:center;gap:5px;font-size:9px;color:var(--text2);}
 .leg-l{width:14px;height:2px;border-radius:1px;}
-.liq-tbl-wrap{background:var(--s1);border:1px solid var(--border);overflow-x:auto;}
+.liq-tbl-wrap{background:var(--s1);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;overflow-x:auto;}
 .liq-tbl{width:100%;border-collapse:collapse;min-width:560px;}
 .liq-tbl th{font-size:8px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);background:var(--s2);}
-.liq-tbl td{padding:10px 12px;border-bottom:1px solid rgba(26,37,53,.5);font-size:10px;vertical-align:middle;}
+.liq-tbl td{padding:10px 12px;border-bottom:1px solid rgba(226,232,240,.7);font-size:10px;vertical-align:middle;}
 .liq-tbl tr:last-child td{border-bottom:none;}
 .liq-tbl tr:hover td{background:var(--s2);}
 .td-name{color:var(--bright);font-weight:600;}
 .td-desc{font-size:8px;color:var(--text2);margin-top:2px;}
 .sent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:18px;}
-.sent-card{background:var(--s1);border:1px solid var(--border);padding:16px;}
-.sent-card h4{font-size:9px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:12px;}
-.sent-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(26,37,53,.5);font-size:10px;}
+.sent-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:18px;}
+.sent-card h4{font-size:10px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:12px;font-weight:600;}
+.sent-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(226,232,240,.7);font-size:10px;}
 .sent-row:last-child{border-bottom:none;}
 .sent-label{color:var(--text2);}
 .sent-note{font-size:9px;color:var(--text2);margin-top:10px;line-height:1.5;padding-top:10px;border-top:1px solid var(--border);}
 .sent-src{font-size:8px;color:var(--accent);margin-top:6px;}
 .sent-src a{color:var(--accent);text-decoration:none;}
-.ov{position:absolute;inset:0;background:rgba(6,9,13,.85);display:flex;align-items:center;justify-content:center;z-index:10;font-size:10px;letter-spacing:2px;color:var(--accent);}
+.ov{position:absolute;inset:0;background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;z-index:10;font-size:10px;letter-spacing:2px;color:var(--accent);}
 .sp{width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin-right:8px;}
 @keyframes spin{to{transform:rotate(360deg);}}
+.thermo-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-lg);padding:24px 28px;margin-bottom:18px;display:grid;grid-template-columns:380px 1fr;gap:28px;align-items:center;}
+.thermo-gauge{position:relative;width:380px;max-width:100%;margin:0 auto;}
+.thermo-gauge svg{width:100%;height:auto;display:block;}
+.thermo-needle{transition:transform 1.1s cubic-bezier(.34,1.2,.64,1);transform-origin:200px 190px;}
+.thermo-info{display:flex;flex-direction:column;gap:14px;}
+.thermo-score{display:flex;align-items:baseline;gap:10px;}
+.thermo-score-v{font-family:'Syne',sans-serif;font-size:64px;font-weight:800;line-height:1;}
+.thermo-score-u{font-size:16px;color:var(--text2);font-weight:600;}
+.thermo-phase{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:1px;}
+.thermo-desc{font-size:12px;color:var(--text);line-height:1.7;border-top:1px solid var(--border);padding-top:14px;}
+.thermo-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px;}
+.thermo-leg-i{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);}
+.thermo-leg-d{width:10px;height:10px;border-radius:3px;}
+.fw-card{background:linear-gradient(135deg,#eff6ff,#ffffff);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:16px;}
+.fw-card .g-name{margin-bottom:8px;}
+.fw-msg{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--accent);line-height:1.2;margin-bottom:8px;}
+.fw-note{font-size:10px;color:var(--text2);line-height:1.6;margin-bottom:10px;}
+.fw-link{display:inline-block;font-size:10px;letter-spacing:1px;padding:6px 12px;border:1px solid var(--accent);color:var(--accent);border-radius:6px;text-decoration:none;text-transform:uppercase;font-weight:600;transition:all .2s;}
+.fw-link:hover{background:var(--accent);color:#fff;}
+@media(max-width:760px){.thermo-card{grid-template-columns:1fr;}.thermo-gauge{width:320px;}}
 </style>
 </head>
 <body>
@@ -152,6 +172,37 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
 </nav>
 <div class="sec">
   <div class="sec-hd"><h2>總體經濟</h2><div class="badge b-macro">MACRO</div><div class="sec-line"></div></div>
+  <div class="sec-hd" style="margin-bottom:10px;"><h2 style="font-size:8px;">綜合景氣溫度計</h2><div class="sec-line"></div></div>
+  <div class="thermo-card">
+    <div class="thermo-gauge">
+      <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 190 A150 150 0 0 1 93.93 83.93" fill="none" stroke="#2563eb" stroke-width="30" stroke-linecap="round"/>
+        <path d="M93.93 83.93 A150 150 0 0 1 200 40" fill="none" stroke="#14b8a6" stroke-width="30"/>
+        <path d="M200 40 A150 150 0 0 1 306.07 83.93" fill="none" stroke="#22c55e" stroke-width="30"/>
+        <path d="M306.07 83.93 A150 150 0 0 1 350 190" fill="none" stroke="#ef4444" stroke-width="30" stroke-linecap="round"/>
+        <text x="78" y="150" text-anchor="middle" font-family="Syne,sans-serif" font-size="13" font-weight="700" fill="#2563eb">衰退</text>
+        <text x="150" y="92" text-anchor="middle" font-family="Syne,sans-serif" font-size="13" font-weight="700" fill="#0f766e">復甦</text>
+        <text x="250" y="92" text-anchor="middle" font-family="Syne,sans-serif" font-size="13" font-weight="700" fill="#15803d">擴張</text>
+        <text x="322" y="150" text-anchor="middle" font-family="Syne,sans-serif" font-size="13" font-weight="700" fill="#dc2626">過熱</text>
+        <g class="thermo-needle" id="thermo-needle">
+          <polygon points="200,55 194,192 206,192" fill="#1e293b"/>
+        </g>
+        <circle cx="200" cy="190" r="14" fill="#1e293b"/>
+        <circle cx="200" cy="190" r="6" fill="#ffffff"/>
+      </svg>
+    </div>
+    <div class="thermo-info">
+      <div class="thermo-score"><span class="thermo-score-v" id="thermo-v">--</span><span class="thermo-score-u">/ 100 分</span></div>
+      <div class="thermo-phase" id="thermo-phase">計算中…</div>
+      <div class="thermo-legend">
+        <div class="thermo-leg-i"><div class="thermo-leg-d" style="background:#2563eb"></div>0-25 衰退</div>
+        <div class="thermo-leg-i"><div class="thermo-leg-d" style="background:#14b8a6"></div>25-50 復甦</div>
+        <div class="thermo-leg-i"><div class="thermo-leg-d" style="background:#22c55e"></div>50-75 擴張</div>
+        <div class="thermo-leg-i"><div class="thermo-leg-d" style="background:#ef4444"></div>75-100 過熱</div>
+      </div>
+      <div class="thermo-desc" id="thermo-desc">綜合失業率、初領失業金、CPI、聯準會利率、殖利率曲線、VIX 等 6 項景氣訊號自動計算。</div>
+    </div>
+  </div>
   <div style="margin-bottom:16px;">
     <div class="sec-hd" style="margin-bottom:10px;"><h2 style="font-size:8px;">景氣週期位置</h2><div class="sec-line"></div></div>
     <div class="cycle-row">
@@ -211,6 +262,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
       <div class="nlb-s"><div class="nlb-s-lbl">Market Stress</div><div class="nlb-s-val" id="mkt-v">-</div><div class="nlb-s-desc" id="mkt-d">-</div></div>
     </div>
   </div>
+  <div class="sec-hd" style="margin-bottom:10px;"><h2 style="font-size:8px;">Fed Watch 降息預期</h2><div class="sec-line"></div></div>
+  <div class="fw-card" style="margin-bottom:18px;">
+    <div class="g-name">CME FEDWATCH 利率機率</div>
+    <div class="fw-msg">請至 CME FedWatch 查詢</div>
+    <div class="fw-note">FedWatch 不提供公開 API，需手動查閱。該工具依據聯邦基金期貨價格推算下次 FOMC 各利率區間的市場隱含機率，是判讀降息／升息預期最直接的依據。</div>
+    <a class="fw-link" href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener">開啟 CME FedWatch Tool ↗</a>
+  </div>
   <div class="g-grid" id="liq-g" style="margin-bottom:18px;"></div>
   <div class="chart-card">
     <div class="chart-hd">
@@ -256,46 +314,58 @@ function fredFetch(id, limit) {
 }
 
 var MACRO = [
-  {id:'UNRATE',name:'失業率',cat:'就業市場',unit:'%',dec:1,div:1,max:12,color:'#34d399',
+  {id:'UNRATE',name:'失業率',cat:'就業市場',unit:'%',dec:1,div:1,max:12,color:'#059669',
    sig:function(v){return v<4?'bull':v<5.5?'neu':'bear';},
    sigs:{bull:'TIGHT LABOR',neu:'SOFTENING',bear:'WEAK'},
    comment:{bull:'失業率偏低 → 就業強勁，聯準會無需急降息，利率偏高壓估值',neu:'就業放緩，聯準會開始觀望降息時機',bear:'失業攀升 → 降息概率大增，衰退風險升'}},
-  {id:'ICSA',name:'初領失業金',cat:'就業市場',unit:'K',dec:0,div:1000,max:600,color:'#f472b6',
+  {id:'ICSA',name:'初領失業金',cat:'就業市場',unit:'K',dec:0,div:1000,max:600,color:'#db2777',
    sig:function(v){return v<220?'bull':v<280?'neu':'bear';},
    sigs:{bull:'HEALTHY',neu:'WATCH',bear:'LABOR STRESS'},
    comment:{bull:'初領低位 → 裁員壓力小，景氣穩健，有利風險資產',neu:'初領溫和上升，需持續觀察',bear:'初領攀升 → 企業裁員加速，景氣衰退訊號'}},
-  {id:'CPIAUCSL',name:'CPI 通膨',cat:'通膨',unit:'%YoY',dec:1,div:1,max:12,color:'#fbbf24',
+  {id:'CPIAUCSL',name:'CPI 通膨',cat:'通膨',unit:'%YoY',dec:1,div:1,max:12,color:'#d97706',
    sig:function(v){return v<2.5?'bull':v<4?'neu':'bear';},
    sigs:{bull:'ON TARGET',neu:'ELEVATED',bear:'HOT'},
    comment:{bull:'通膨受控 → 降息空間打開，債市上漲，成長股回升',neu:'通膨仍高，降息受限',bear:'通膨過熱 → 升息機會升，企業成本增，美元走強'}},
-  {id:'PCEPI',name:'PCE 物價',cat:'通膨',unit:'idx',dec:1,div:1,max:150,color:'#fbbf24',
+  {id:'PCEPI',name:'PCE 物價',cat:'通膨',unit:'idx',dec:1,div:1,max:150,color:'#d97706',
    sig:function(v){return 'neu';},
    sigs:{bull:'COOL',neu:'WATCH',bear:'HOT'},
    comment:{bull:'PCE降溫 → 降息路徑更清晰',neu:'PCE持穩，聯準會觀望',bear:'PCE偏高 → 政策轉鷹風險升'}},
-  {id:'DFF',name:'聯準會利率',cat:'貨幣政策',unit:'%',dec:2,div:1,max:10,color:'#a78bfa',
+  {id:'DFF',name:'聯準會利率',cat:'貨幣政策',unit:'%',dec:2,div:1,max:10,color:'#7c3aed',
    sig:function(v){return v<2?'bull':v<4.5?'neu':'bear';},
    sigs:{bull:'EASY',neu:'NEUTRAL',bear:'RESTRICTIVE'},
    comment:{bull:'低利率 → 資金寬鬆，成長股受惠',neu:'中性利率，觀察通膨就業平衡',bear:'高利率 → 壓制本益比，美元走強，新興市場承壓'}},
-  {id:'T10Y2Y',name:'殖利率曲線',cat:'貨幣政策',unit:'%',dec:2,div:1,max:4,color:'#f472b6',
+  {id:'T10Y2Y',name:'殖利率曲線',cat:'貨幣政策',unit:'%',dec:2,div:1,max:4,color:'#db2777',
    sig:function(v){return v>0.5?'bull':v>0?'neu':'bear';},
    sigs:{bull:'NORMAL',neu:'FLAT',bear:'INVERTED'},
    comment:{bull:'正斜率 → 景氣擴張預期，銀行業受惠',neu:'趨平，注意轉折',bear:'倒掛 → 歷史上最可靠衰退指標，12-18個月後衰退'}},
-  {id:'DTWEXBGS',name:'美元指數',cat:'外匯',unit:'',dec:1,div:1,max:160,color:'#38bdf8',
+  {id:'DTWEXBGS',name:'美元指數',cat:'外匯',unit:'',dec:1,div:1,max:160,color:'#0284c7',
    sig:function(v){return v>112?'bear':v>100?'neu':'bull';},
    sigs:{bull:'WEAK USD',neu:'MODERATE',bear:'STRONG USD'},
-   comment:{bull:'美元弱 → 新興市場受惠，台股外資回流',neu:'美元中性',bear:'美元強 → 新興市場承壓，台股外資匯出風險'}}
+   comment:{bull:'美元弱 → 新興市場受惠，台股外資回流',neu:'美元中性',bear:'美元強 → 新興市場承壓，台股外資匯出風險'}},
+  {id:'ISMMPCSNO',name:'ISM製造業支付價格',cat:'通膨',unit:'',dec:1,div:1,max:100,color:'#d97706',
+   sig:function(v){return v<50?'bull':v<60?'neu':'bear';},
+   sigs:{bull:'COOLING',neu:'NEUTRAL',bear:'PRICE PRESSURE'},
+   comment:{bull:'支付價格<50 → 製造業上游通膨壓力降溫，利於降息',neu:'價格溫和，通膨壓力中性',bear:'支付價格>60 → 上游成本攀升，CPI 領先指標，通膨黏著'}},
+  {id:'DGS2',name:'2Y公債殖利率',cat:'貨幣政策',unit:'%',dec:2,div:1,max:6,color:'#7c3aed',
+   sig:function(v){return v<3?'bull':v<4.5?'neu':'bear';},
+   sigs:{bull:'EASE PRICED',neu:'NEUTRAL',bear:'RESTRICTIVE'},
+   comment:{bull:'2Y偏低 → 市場已定價降息，資金成本下降利於股市',neu:'2Y中性，等待政策方向',bear:'2Y偏高 → 市場預期利率長期維持高檔，壓制估值'}},
+  {id:'SP500',name:'S&P 500 指數',cat:'股市估值',unit:'',dec:0,div:1,max:7000,color:'#0284c7',
+   sig:function(v){return 'neu';},
+   sigs:{bull:'',neu:'指數參考',bear:''},
+   comment:{neu:'S&P 500 點位，搭配企業每股盈餘可估算 Forward P/E，作為評價貴賤的參考。'}}
 ];
 
 var LIQ = [
-  {id:'WALCL',name:'Fed Balance Sheet',cat:'System Liq',unit:'T',dec:2,div:1000000,max:10,color:'#34d399',desc:'QT縮表結構中',
+  {id:'WALCL',name:'Fed Balance Sheet',cat:'System Liq',unit:'T',dec:2,div:1000000,max:10,color:'#059669',desc:'QT縮表結構中',
    sig:function(v){return v>7?'bull':v>6?'neu':'bear';},sigs:{bull:'EXPANSIVE',neu:'NEUTRAL',bear:'TIGHTENING'},src:'https://fred.stlouisfed.org/series/WALCL'},
-  {id:'RRPONTSYD',name:'RRP Overnight',cat:'System Liq',unit:'B',dec:1,div:1,max:2500,color:'#f87171',desc:'超額準備金指標',
+  {id:'RRPONTSYD',name:'RRP Overnight',cat:'System Liq',unit:'B',dec:1,div:1,max:2500,color:'#dc2626',desc:'超額準備金指標',
    sig:function(v){return v<100?'bear':v<500?'neu':'bull';},sigs:{bull:'HIGH EXCESS',neu:'MODERATE',bear:'LOW EXCESS'},src:'https://fred.stlouisfed.org/series/RRPONTSYD'},
-  {id:'VIXCLS',name:'VIX 恐慌指數',cat:'Market Stress',unit:'',dec:2,div:1,max:80,color:'#38bdf8',desc:'股票市場波動率',
+  {id:'VIXCLS',name:'VIX 恐慌指數',cat:'Market Stress',unit:'',dec:2,div:1,max:80,color:'#0284c7',desc:'股票市場波動率',
    sig:function(v){return v<15?'bull':v<25?'neu':'bear';},sigs:{bull:'LOW FEAR',neu:'MODERATE',bear:'HIGH FEAR'},src:'https://fred.stlouisfed.org/series/VIXCLS'},
-  {id:'BAMLH0A0HYM2',name:'HY Credit Spread',cat:'Market Stress',unit:'%',dec:2,div:1,max:20,color:'#fbbf24',desc:'信用市場壓力',
+  {id:'BAMLH0A0HYM2',name:'HY Credit Spread',cat:'Market Stress',unit:'%',dec:2,div:1,max:20,color:'#d97706',desc:'信用市場壓力',
    sig:function(v){return v<3.5?'bull':v<5.5?'neu':'bear';},sigs:{bull:'TIGHT',neu:'MODERATE',bear:'WIDE/STRESS'},src:'https://fred.stlouisfed.org/series/BAMLH0A0HYM2'},
-  {id:'T10Y2Y',name:'殖利率曲線 10Y-2Y',cat:'Policy',unit:'%',dec:2,div:1,max:4,color:'#f472b6',desc:'衰退領先指標',
+  {id:'T10Y2Y',name:'殖利率曲線 10Y-2Y',cat:'Policy',unit:'%',dec:2,div:1,max:4,color:'#db2777',desc:'衰退領先指標',
    sig:function(v){return v>0.5?'bull':v>0?'neu':'bear';},sigs:{bull:'NORMAL',neu:'FLAT',bear:'INVERTED'},src:'https://fred.stlouisfed.org/series/T10Y2Y'}
 ];
 
@@ -391,11 +461,11 @@ function renderCycle() {
   var bulls = 0, bears = 0;
   sigs.forEach(function(s) { if (s.sig === 'bull') bulls++; if (s.sig === 'bear') bears++; });
   var phase, pc, offset;
-  if (bears >= 4 || (t102 != null && t102 < 0 && bears >= 2)) { phase = '衰退'; pc = '#f87171'; offset = -175.93; }
-  else if (bulls >= 4 && (cpi == null || cpi < 3)) { phase = '擴張'; pc = '#34d399'; offset = 0; }
-  else if (bulls >= 3 && cpi != null && cpi > 3.5) { phase = '過熱'; pc = '#fbbf24'; offset = -87.96; }
-  else if (bears >= 2) { phase = '衰退'; pc = '#f87171'; offset = -175.93; }
-  else { phase = '復甦'; pc = '#38bdf8'; offset = -263.89; }
+  if (bears >= 4 || (t102 != null && t102 < 0 && bears >= 2)) { phase = '衰退'; pc = '#dc2626'; offset = -175.93; }
+  else if (bulls >= 4 && (cpi == null || cpi < 3)) { phase = '擴張'; pc = '#059669'; offset = 0; }
+  else if (bulls >= 3 && cpi != null && cpi > 3.5) { phase = '過熱'; pc = '#d97706'; offset = -87.96; }
+  else if (bears >= 2) { phase = '衰退'; pc = '#dc2626'; offset = -175.93; }
+  else { phase = '復甦'; pc = '#0284c7'; offset = -263.89; }
   document.getElementById('c-phase').textContent = phase;
   document.getElementById('c-phase').style.color = pc;
   document.getElementById('c-sub').textContent = 'Bull:' + bulls + ' Bear:' + bears;
@@ -407,6 +477,55 @@ function renderCycle() {
     var sc = s.sig === 'bull' ? 'sig-bull' : s.sig === 'bear' ? 'sig-bear' : 'sig-neu';
     el.innerHTML += '<div class="cs-row"><div class="cs-icon">' + s.icon + '</div><div class="cs-name">' + s.name + '</div><div class="cs-val">' + s.val + '</div><div class="cs-sig ' + sc + '">' + s.label + '</div></div>';
   });
+}
+
+function renderThermometer() {
+  var u = D['UNRATE'] ? D['UNRATE'].value : null;
+  var ic = D['ICSA'] ? D['ICSA'].value / 1000 : null;
+  var cpi = D['CPIAUCSL'] ? D['CPIAUCSL'].value : null;
+  var ffr = D['DFF'] ? D['DFF'].value : null;
+  var t102 = D['T10Y2Y'] ? D['T10Y2Y'].value : null;
+  var vix = D['VIXCLS'] ? D['VIXCLS'].value : null;
+  var sigs = [
+    u != null ? (u < 4 ? 'bull' : u < 5.5 ? 'neu' : 'bear') : null,
+    ic != null ? (ic < 220 ? 'bull' : ic < 280 ? 'neu' : 'bear') : null,
+    cpi != null ? (cpi < 2.5 ? 'bull' : cpi < 4 ? 'neu' : 'bear') : null,
+    ffr != null ? (ffr < 2 ? 'bull' : ffr < 4.5 ? 'neu' : 'bear') : null,
+    t102 != null ? (t102 > 0.5 ? 'bull' : t102 > 0 ? 'neu' : 'bear') : null,
+    vix != null ? (vix < 15 ? 'bull' : vix < 25 ? 'neu' : 'bear') : null
+  ];
+  var bulls = 0, bears = 0, n = 0;
+  sigs.forEach(function(s) { if (s) { n++; if (s === 'bull') bulls++; if (s === 'bear') bears++; } });
+  var phase, base, col, desc;
+  if (bears >= 4 || (t102 != null && t102 < 0 && bears >= 2)) {
+    phase = '衰退'; base = 12.5; col = '#2563eb';
+    desc = '多數景氣訊號轉弱，景氣處於收縮階段。防禦性資產（美債、黃金）相對抗跌，股市與景氣循環股承壓。';
+  } else if (bulls >= 4 && (cpi == null || cpi < 3)) {
+    phase = '擴張'; base = 62.5; col = '#22c55e';
+    desc = '就業穩健、通膨受控，景氣處於健康擴張階段，有利風險資產、成長股與台股表現。';
+  } else if (bulls >= 3 && cpi != null && cpi > 3.5) {
+    phase = '過熱'; base = 87.5; col = '#ef4444';
+    desc = '景氣強勁但通膨偏高，留意聯準會政策轉鷹與估值修正風險，商品與抗通膨資產相對有利。';
+  } else if (bears >= 2) {
+    phase = '衰退'; base = 12.5; col = '#2563eb';
+    desc = '景氣訊號偏弱，需提防衰退風險，宜提高防禦性配置、降低槓桿。';
+  } else {
+    phase = '復甦'; base = 37.5; col = '#14b8a6';
+    desc = '景氣訊號分歧，處於落底回升的復甦階段，宜逢低布局景氣循環與成長股。';
+  }
+  var score = Math.round(base + (bulls - bears) * 2.5);
+  score = Math.max(base - 10.5, Math.min(base + 10.5, score));
+  score = Math.max(0, Math.min(100, Math.round(score)));
+  var angle = (score - 50) * 1.8;
+  var needle = document.getElementById('thermo-needle');
+  if (needle) needle.setAttribute('transform', 'rotate(' + angle.toFixed(1) + ' 200 190)');
+  var vEl = document.getElementById('thermo-v');
+  vEl.textContent = n ? score : '--';
+  vEl.style.color = col;
+  var phEl = document.getElementById('thermo-phase');
+  phEl.textContent = n ? (phase + ' · ' + bulls + '多 / ' + bears + '空（共' + n + '項）') : '資料不足';
+  phEl.style.color = col;
+  document.getElementById('thermo-desc').textContent = desc;
 }
 
 function renderCalendar() {
@@ -499,31 +618,31 @@ function renderLiqChart() {
   ctx.clearRect(0, 0, W, H);
   for (var i = 0; i <= 4; i++) {
     var y = pad.t + (i / 4) * cH;
-    ctx.strokeStyle = 'rgba(26,37,53,.8)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(203,213,225,.9)'; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cW, y); ctx.stroke();
-    ctx.fillStyle = '#475569'; ctx.font = '9px IBM Plex Mono';
+    ctx.fillStyle = '#64748b'; ctx.font = '9px IBM Plex Mono';
     ctx.fillText((mx - i * (mx - mn) / 4).toFixed(1) + 'T', 2, y + 3);
   }
   var step = Math.floor(pts.length / 6);
   pts.forEach(function(p, i) {
-    if (i % step === 0) { ctx.fillStyle = '#475569'; ctx.font = '8px IBM Plex Mono'; ctx.fillText(p.date, xS(i) - 16, H - 6); }
+    if (i % step === 0) { ctx.fillStyle = '#64748b'; ctx.font = '8px IBM Plex Mono'; ctx.fillText(p.date, xS(i) - 16, H - 6); }
   });
-  ctx.beginPath(); ctx.strokeStyle = 'rgba(52,211,153,.4)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+  ctx.beginPath(); ctx.strokeStyle = 'rgba(5,150,105,.5)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
   pts.forEach(function(p, i) { i === 0 ? ctx.moveTo(xS(i), yS(p.fedBs)) : ctx.lineTo(xS(i), yS(p.fedBs)); });
   ctx.stroke(); ctx.setLineDash([]);
   var g = ctx.createLinearGradient(0, pad.t, 0, pad.t + cH);
-  g.addColorStop(0, 'rgba(56,189,248,.2)'); g.addColorStop(1, 'rgba(56,189,248,0)');
+  g.addColorStop(0, 'rgba(2,132,199,.18)'); g.addColorStop(1, 'rgba(2,132,199,0)');
   ctx.beginPath();
   pts.forEach(function(p, i) { i === 0 ? ctx.moveTo(xS(i), yS(p.netLiq)) : ctx.lineTo(xS(i), yS(p.netLiq)); });
   ctx.lineTo(xS(pts.length - 1), pad.t + cH); ctx.lineTo(pad.l, pad.t + cH);
   ctx.closePath(); ctx.fillStyle = g; ctx.fill();
-  ctx.beginPath(); ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.strokeStyle = '#0284c7'; ctx.lineWidth = 2;
   pts.forEach(function(p, i) { i === 0 ? ctx.moveTo(xS(i), yS(p.netLiq)) : ctx.lineTo(xS(i), yS(p.netLiq)); });
   ctx.stroke();
   var last = pts[pts.length - 1];
   ctx.beginPath(); ctx.arc(xS(pts.length - 1), yS(last.netLiq), 4, 0, Math.PI * 2);
-  ctx.fillStyle = '#38bdf8'; ctx.fill();
-  ctx.fillStyle = '#e2e8f0'; ctx.font = 'bold 10px IBM Plex Mono';
+  ctx.fillStyle = '#0284c7'; ctx.fill();
+  ctx.fillStyle = '#1e293b'; ctx.font = 'bold 10px IBM Plex Mono';
   ctx.fillText('$' + last.netLiq + 'T', xS(pts.length - 1) - 30, yS(last.netLiq) - 8);
 }
 
@@ -579,6 +698,7 @@ function loadAll() {
   Promise.all(promises).then(function() {
     renderGauges(MACRO, 'macro-g', true);
     renderCycle();
+    renderThermometer();
     renderGauges(LIQ, 'liq-g', false);
     renderLiqBanner();
     renderLiqChart();
