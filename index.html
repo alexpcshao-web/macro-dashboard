@@ -241,12 +241,20 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0
     </table>
   </div>
   <div class="sec-hd" style="margin-bottom:10px;"><h2 style="font-size:8px;">資產影響矩陣</h2><div class="sec-line"></div></div>
-  <div class="mx-wrap">
+  <div class="mx-wrap" style="margin-bottom:18px;">
     <table class="mx-tbl">
       <thead><tr><th>情境</th><th>美股</th><th>美債</th><th>美元</th><th>台股</th><th>商品</th><th>黃金</th></tr></thead>
       <tbody id="mx-body"></tbody>
     </table>
   </div>
+  <div class="sec-hd" style="margin-bottom:10px;"><h2 style="font-size:8px;">全球央行 利率與匯率</h2><div class="sec-line"></div></div>
+  <div class="liq-tbl-wrap">
+    <table class="liq-tbl">
+      <thead><tr><th>央行</th><th>政策利率</th><th>近一期變化</th><th>兌美元匯率</th><th>匯率變化</th><th>利率來源</th></tr></thead>
+      <tbody id="cb-body"></tbody>
+    </table>
+  </div>
+  <div style="font-size:9px;color:var(--text2);line-height:1.6;margin-top:8px;">註：歐元區為 ECB 存款機制利率（即政策利率）；英／澳／日採隔夜拆款利率（SONIA／Call Money），緊貼各央行政策利率，官方確切數字請點來源連結。利率與匯率皆來自 FRED。</div>
 </div>
 <div class="sec">
   <div class="sec-hd"><h2>市場流動性</h2><div class="badge b-liq">LIQUIDITY</div><div class="sec-line"></div></div>
@@ -367,6 +375,17 @@ var LIQ = [
    sig:function(v){return v<3.5?'bull':v<5.5?'neu':'bear';},sigs:{bull:'TIGHT',neu:'MODERATE',bear:'WIDE/STRESS'},src:'https://fred.stlouisfed.org/series/BAMLH0A0HYM2'},
   {id:'T10Y2Y',name:'殖利率曲線 10Y-2Y',cat:'Policy',unit:'%',dec:2,div:1,max:4,color:'#db2777',desc:'衰退領先指標',
    sig:function(v){return v>0.5?'bull':v>0?'neu':'bear';},sigs:{bull:'NORMAL',neu:'FLAT',bear:'INVERTED'},src:'https://fred.stlouisfed.org/series/T10Y2Y'}
+];
+
+var CBANKS = [
+  {cc:'🇪🇺',name:'歐洲央行 ECB',rateId:'ECBDFR',rateLbl:'存款機制利率（政策利率）',fxId:'DEXUSEU',fxPair:'EUR/USD',dec:4,
+   rateSrc:'https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html'},
+  {cc:'🇬🇧',name:'英國央行 BoE',rateId:'IUDSOIA',rateLbl:'SONIA 隔夜（≈ Bank Rate）',fxId:'DEXUSUK',fxPair:'GBP/USD',dec:4,
+   rateSrc:'https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate'},
+  {cc:'🇦🇺',name:'澳洲央行 RBA',rateId:'IRSTCI01AUM156N',rateLbl:'隔夜拆款（≈ Cash Rate）',fxId:'DEXUSAL',fxPair:'AUD/USD',dec:4,
+   rateSrc:'https://www.rba.gov.au/statistics/cash-rate/'},
+  {cc:'🇯🇵',name:'日本央行 BoJ',rateId:'IRSTCI01JPM156N',rateLbl:'隔夜拆款（≈ 政策利率）',fxId:'DEXJPUS',fxPair:'USD/JPY',dec:2,
+   rateSrc:'https://www.boj.or.jp/en/statistics/market/short/mutan/index.htm'}
 ];
 
 var EVENTS = [
@@ -557,6 +576,38 @@ function renderMatrix() {
   });
 }
 
+function renderCentralBanks() {
+  var tb = document.getElementById('cb-body');
+  if (!tb) return;
+  tb.innerHTML = '';
+  CBANKS.forEach(function(cb) {
+    var rd = D[cb.rateId], fx = D[cb.fxId];
+    var rate = rd && rd.value != null ? rd.value.toFixed(2) + '%' : '-';
+    var rChgHtml = '<span style="color:var(--text2)">-</span>';
+    if (rd && rd.prev != null) {
+      var diff = rd.value - rd.prev;
+      var rc = diff > 0 ? 'var(--red)' : diff < 0 ? 'var(--green)' : 'var(--text2)';
+      var ra = diff > 0 ? '▲' : diff < 0 ? '▼' : '—';
+      rChgHtml = '<span style="font-size:10px;font-weight:600;color:' + rc + '">' + ra + ' ' + Math.abs(diff).toFixed(2) + '%</span>';
+    }
+    var fxVal = fx && fx.value != null ? cb.fxPair + ' ' + fx.value.toFixed(cb.dec) : '-';
+    var fChgHtml = '<span style="color:var(--text2)">-</span>';
+    if (fx && fx.prev != null) {
+      var fpct = (fx.value - fx.prev) / Math.abs(fx.prev) * 100;
+      var fa = fpct > 0 ? '▲' : fpct < 0 ? '▼' : '—';
+      fChgHtml = '<span style="font-size:10px;color:var(--text2)">' + fa + ' ' + Math.abs(fpct).toFixed(2) + '%</span>';
+    }
+    tb.innerHTML += '<tr>' +
+      '<td><div class="td-name">' + cb.cc + ' ' + cb.name + '</div><div class="td-desc">' + cb.rateLbl + '</div></td>' +
+      '<td style="font-family:Syne,sans-serif;font-size:17px;font-weight:700;color:var(--bright)">' + rate + '</td>' +
+      '<td>' + rChgHtml + '<div class="td-desc">' + (rd && rd.date ? rd.date : '-') + '</div></td>' +
+      '<td style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;color:var(--accent)">' + fxVal + '</td>' +
+      '<td>' + fChgHtml + '<div class="td-desc">' + (fx && fx.date ? fx.date : '-') + '</div></td>' +
+      '<td><a href="' + cb.rateSrc + '" target="_blank" rel="noopener" style="font-size:9px;color:var(--accent);text-decoration:none">官方頁面 ↗</a><div class="td-desc">' + cb.rateId + '</div></td>' +
+      '</tr>';
+  });
+}
+
 function renderLiqBanner() {
   var walcl = D['WALCL'] ? D['WALCL'].value : null;
   var rrp = D['RRPONTSYD'] ? D['RRPONTSYD'].value : null;
@@ -684,6 +735,7 @@ function loadAll() {
   btn.classList.add('loading'); btn.textContent = '載入中...';
   var ids = [];
   MACRO.concat(LIQ).forEach(function(ind) { if (ids.indexOf(ind.id) === -1) ids.push(ind.id); });
+  CBANKS.forEach(function(cb) { [cb.rateId, cb.fxId].forEach(function(id) { if (ids.indexOf(id) === -1) ids.push(id); }); });
   var promises = ids.map(function(id) {
     return fredFetch(id, 26).then(function(obs) {
       if (!obs || !obs.length) return;
@@ -703,6 +755,7 @@ function loadAll() {
     renderLiqBanner();
     renderLiqChart();
     renderLiqTable();
+    renderCentralBanks();
     document.getElementById('ts').textContent = new Date().toLocaleString('zh-TW');
     btn.classList.remove('loading'); btn.textContent = 'REFRESH';
   });
